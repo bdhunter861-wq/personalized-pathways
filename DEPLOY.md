@@ -57,6 +57,25 @@ vercel --prod     # deploys and prints the link; re-run after changes
 
 ---
 
+## Password protection (built in, free)
+
+The site is gated behind a shared password using `middleware.ts`, so anyone with
+the link must enter a password before they can view it. This works on Vercel's
+free plan (Vercel's own password protection is a paid Pro feature).
+
+**Set your password in Vercel:**
+1. Project → **Settings → Environment Variables**.
+2. Add `SITE_PASSWORD` = your chosen password (apply to all environments).
+3. Redeploy (Deployments → latest → **Redeploy**) so the new value takes effect.
+
+Viewers get a browser login prompt: they can type anything as the username and
+just need the **password**. Share the link and the password with your partners.
+
+- If you don't set `SITE_PASSWORD`, a placeholder default is used, so **set your
+  own before sharing.**
+- To make the site fully public later (e.g. on the real domain), set
+  `SITE_PASSWORD` to an empty value, or delete `middleware.ts`.
+
 ## Notes
 
 - The free **Hobby** plan is plenty for this preview site.
@@ -64,5 +83,4 @@ vercel --prod     # deploys and prints the link; re-run after changes
   domain is a separate, later step (see README.md) and should wait until any old
   Wayback Machine material is saved.
 - Secrets/build output are git-ignored, so nothing sensitive gets published.
-- To gate the preview behind a password, Vercel has **Deployment Protection**
-  (Project → Settings → Deployment Protection) — optional.
+- Keep the GitHub repo **private** while it's a preview.
