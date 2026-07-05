@@ -57,24 +57,15 @@ vercel --prod     # deploys and prints the link; re-run after changes
 
 ---
 
-## Password protection (built in, free)
+## Access
 
-The site is gated behind a shared password using `middleware.ts`, so anyone with
-the link must enter a password before they can view it. This works on Vercel's
-free plan (Vercel's own password protection is a paid Pro feature).
+The preview is **public** — anyone with the link can view it (there's no
+password). The `*.vercel.app` URL is random and not linked from anywhere, so it
+won't be found unless you share it.
 
-**Set your password in Vercel:**
-1. Project → **Settings → Environment Variables**.
-2. Add `SITE_PASSWORD` = your chosen password (apply to all environments).
-3. Redeploy (Deployments → latest → **Redeploy**) so the new value takes effect.
-
-Viewers get a browser login prompt: they can type anything as the username and
-just need the **password**. Share the link and the password with your partners.
-
-- If you don't set `SITE_PASSWORD`, a placeholder default is used, so **set your
-  own before sharing.**
-- To make the site fully public later (e.g. on the real domain), set
-  `SITE_PASSWORD` to an empty value, or delete `middleware.ts`.
+Want to add a password later? A shared-password gate can be added back with a
+small `middleware.ts` (Vercel's own password protection is a paid Pro feature).
+Just ask.
 
 ## Notes
 
