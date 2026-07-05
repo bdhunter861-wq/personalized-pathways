@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Placeholder favicon: a simple pathway mark in the brand blue + green.
+       TODO: replace with the Personalized Pathways logo mark once finalized. -->
+  <rect width="32" height="32" rx="7" fill="#1c3a55"/>
+  <path d="M8 25 C8 18 16 18 16 13 S24 8 24 6"
+        fill="none" stroke="#2f9fd4" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="8" cy="25" r="2.4" fill="#4f9d43"/>
+  <circle cx="24" cy="6.5" r="2.4" fill="#4f9d43"/>
+</svg>
