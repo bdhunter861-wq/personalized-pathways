@@ -25,7 +25,12 @@ export default function SectionHeading({
   return (
     <div className={`${centered ? "mx-auto max-w-2xl text-center" : "max-w-2xl"} ${className}`}>
       {eyebrow && (
-        <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-clay-dark">
+        <p
+          className={`mb-3 flex items-center gap-2.5 text-sm font-semibold uppercase tracking-[0.18em] text-clay-dark ${
+            centered ? "justify-center" : ""
+          }`}
+        >
+          <span aria-hidden="true" className="brand-rule h-[3px] w-7 rounded-full" />
           {eyebrow}
         </p>
       )}

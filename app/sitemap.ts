@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/resources",
     "/faqs",
     "/results",
+    "/consultation",
   ];
 
   const staticEntries: MetadataRoute.Sitemap = staticPaths.map((path) => ({

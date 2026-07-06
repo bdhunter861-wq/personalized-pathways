@@ -3,7 +3,8 @@ import type { Resource } from "@/data/resources";
 
 export default function ResourceCard({ resource }: { resource: Resource }) {
   return (
-    <article className="flex h-full flex-col rounded-2xl border border-line bg-card p-6 shadow-sm transition-shadow hover:shadow-md">
+    <article className="lift flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-card p-6 shadow-sm hover:shadow-md">
+      <div className="brand-rule -mx-6 -mt-6 mb-5 h-1.5" />
       <div className="flex items-center gap-2">
         {resource.comingSoon && (
           <span className="inline-flex rounded-full bg-sage-soft px-3 py-1 text-xs font-semibold uppercase tracking-wide text-sage">

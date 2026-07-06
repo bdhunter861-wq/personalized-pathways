@@ -65,14 +65,13 @@ export const footerNav: NavItem[] = [
 ];
 
 // Where "Schedule a consultation" leads: a booking link if one is set,
-// otherwise a prefilled email to the company address.
+// otherwise the on-site consultation page (a short form that pre-fills an email
+// to the company address when submitted).
 export const consultationHref =
   siteConfig.schedulingLink &&
   siteConfig.schedulingLink !== "TODO_ADD_SCHEDULING_LINK"
     ? siteConfig.schedulingLink
-    : `mailto:${siteConfig.email}?subject=${encodeURIComponent(
-        "Consultation request — Personalized Pathways",
-      )}`;
+    : "/consultation";
 
 // Reused legal language.
 export const legal = {

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Container from "@/components/Container";
 import PageHero from "@/components/PageHero";
 import CTASection from "@/components/CTASection";
+import SchoolLogo from "@/components/SchoolLogo";
 import {
   colleges,
   specializedPlacements,
@@ -10,6 +11,7 @@ import {
   honorsColleges,
   competitiveMajorSchools,
   scholarshipStatement,
+  schoolDomains,
   testimonials,
 } from "@/data/results";
 
@@ -35,16 +37,7 @@ function Chips({ items }: { items: string[] }) {
   );
 }
 
-// Single-letter monogram from the first meaningful word of a school name.
-const STOP = new Set(["the", "university", "of", "college"]);
-function initial(name: string) {
-  const word = name
-    .split(/\s+/)
-    .find((w) => !STOP.has(w.toLowerCase().replace(/[^a-z]/gi, "")));
-  return (word ?? name).charAt(0).toUpperCase();
-}
-
-// School list as monogram badge cards (more visual than plain chips).
+// School list as badge cards with real logos (monogram fallback).
 function SchoolBadges({ items }: { items: string[] }) {
   const tones = [
     "bg-clay-soft text-clay-dark",
@@ -58,14 +51,11 @@ function SchoolBadges({ items }: { items: string[] }) {
           key={name}
           className="lift flex items-center gap-3 rounded-xl border border-line bg-card px-4 py-3 shadow-sm"
         >
-          <span
-            className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full font-serif text-base font-semibold ${
-              tones[i % tones.length]
-            }`}
-            aria-hidden="true"
-          >
-            {initial(name)}
-          </span>
+          <SchoolLogo
+            name={name}
+            domain={schoolDomains[name]}
+            tone={tones[i % tones.length]}
+          />
           <span className="text-sm font-medium leading-snug text-ink">{name}</span>
         </li>
       ))}
@@ -210,7 +200,7 @@ export default function ResultsPage() {
         title="Medical school admissions"
         description="Students supported through medical school applications have been admitted to programs including these."
       >
-        <Chips items={medSchools} />
+        <SchoolBadges items={medSchools} />
       </ResultsSection>
 
       {/* BS/MD */}
@@ -220,7 +210,7 @@ export default function ResultsPage() {
         description="Competitive combined-degree programs students have earned admission to."
         tint
       >
-        <Chips items={bsMdPrograms} />
+        <SchoolBadges items={bsMdPrograms} />
       </ResultsSection>
 
       {/* Honors colleges */}
