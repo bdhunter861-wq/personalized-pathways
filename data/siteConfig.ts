@@ -27,10 +27,11 @@ export const siteConfig = {
   pricingNote:
     "All packages are custom-scoped. Contact Personalized Pathways for pricing.",
 
-  // TODO_ADD_EMAIL — replace with Michelle's real contact email.
-  email: "TODO_ADD_EMAIL",
+  // Company contact email.
+  email: "personalizedpathwayscc@gmail.com",
 
   // TODO_ADD_SCHEDULING_LINK — replace with a real scheduling/booking URL when ready.
+  // Until then, "Schedule a consultation" opens an email to the address above.
   schedulingLink: "TODO_ADD_SCHEDULING_LINK",
 
   // TODO — add social links if/when Michelle wants them (leave empty to hide).
@@ -49,22 +50,29 @@ export type NavItem = { label: string; href: string };
 
 export const mainNav: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "College Consulting", href: "/college-consulting" },
   { label: "Services", href: "/services" },
   { label: "Results", href: "/results" },
   { label: "About", href: "/about" },
   { label: "FAQs", href: "/faqs" },
-  { label: "Contact", href: "/contact" },
 ];
 
 export const footerNav: NavItem[] = [
-  { label: "College Consulting", href: "/college-consulting" },
   { label: "Services", href: "/services" },
   { label: "Results", href: "/results" },
+  { label: "About", href: "/about" },
   { label: "Resources", href: "/resources" },
   { label: "FAQs", href: "/faqs" },
-  { label: "Contact", href: "/contact" },
 ];
+
+// Where "Schedule a consultation" leads: a booking link if one is set,
+// otherwise a prefilled email to the company address.
+export const consultationHref =
+  siteConfig.schedulingLink &&
+  siteConfig.schedulingLink !== "TODO_ADD_SCHEDULING_LINK"
+    ? siteConfig.schedulingLink
+    : `mailto:${siteConfig.email}?subject=${encodeURIComponent(
+        "Consultation request — Personalized Pathways",
+      )}`;
 
 // Reused legal language.
 export const legal = {
@@ -73,5 +81,5 @@ export const legal = {
   longDisclaimer:
     "Personalized Pathways College Consulting provides educational consulting and application support. Admission, scholarship, honors, and financial aid outcomes are not guaranteed.",
   privacyNote:
-    "We use information shared through the contact form only to respond to your inquiry.",
+    "We use the information you share with us only to respond to your inquiry.",
 };

@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Lora, Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { siteConfig } from "@/data/siteConfig";
 
-// Warm, characterful display serif for headings; clean sans for body/UI.
-const fraunces = Fraunces({
+// Clean, warm, conventional serif for headings; clean sans for body/UI.
+const lora = Lora({
   subsets: ["latin"],
-  variable: "--font-fraunces",
+  variable: "--font-lora",
   display: "swap",
-  axes: ["opsz"],
 });
 const inter = Inter({
   subsets: ["latin"],
@@ -71,7 +70,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
+    <html lang="en" className={`${lora.variable} ${inter.variable}`}>
       <body className="flex min-h-screen flex-col">
         <a
           href="#main-content"

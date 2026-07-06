@@ -8,12 +8,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const staticPaths = [
     "",
-    "/college-consulting",
     "/services",
     "/about",
     "/resources",
     "/faqs",
-    "/contact",
     "/results",
   ];
 

@@ -42,8 +42,22 @@ export const bsMdPrograms = [
 ];
 
 // Honors college admissions.
-// TODO — add any additional honors colleges the client confirms.
-export const honorsColleges = ["University of Maryland Honors College"];
+// TODO — CONFIRM this list. These are well-known honors colleges/programs at
+// schools already on the acceptances list, added per the client's note that
+// students have been admitted to honors colleges across many of them. Trim or
+// expand to match actual honors-college admits before go-live.
+export const honorsColleges = [
+  "University of Maryland Honors College",
+  "Purdue University Honors College",
+  "Penn State Schreyer Honors College",
+  "University of Oklahoma Honors College",
+  "Indiana University Hutton Honors College",
+  "University of Oregon Clark Honors College",
+  "Baylor University Honors College",
+  "Colorado State University Honors Program",
+  "University of Denver Honors Program",
+  "Miami University Honors College",
+];
 
 // Highly competitive programs/majors (harder than general admission).
 export const competitiveMajorSchools = [

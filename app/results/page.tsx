@@ -35,6 +35,44 @@ function Chips({ items }: { items: string[] }) {
   );
 }
 
+// Single-letter monogram from the first meaningful word of a school name.
+const STOP = new Set(["the", "university", "of", "college"]);
+function initial(name: string) {
+  const word = name
+    .split(/\s+/)
+    .find((w) => !STOP.has(w.toLowerCase().replace(/[^a-z]/gi, "")));
+  return (word ?? name).charAt(0).toUpperCase();
+}
+
+// School list as monogram badge cards (more visual than plain chips).
+function SchoolBadges({ items }: { items: string[] }) {
+  const tones = [
+    "bg-clay-soft text-clay-dark",
+    "bg-sage-soft text-sage",
+    "bg-cream-deep text-ink",
+  ];
+  return (
+    <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {items.map((name, i) => (
+        <li
+          key={name}
+          className="lift flex items-center gap-3 rounded-xl border border-line bg-card px-4 py-3 shadow-sm"
+        >
+          <span
+            className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full font-serif text-base font-semibold ${
+              tones[i % tones.length]
+            }`}
+            aria-hidden="true"
+          >
+            {initial(name)}
+          </span>
+          <span className="text-sm font-medium leading-snug text-ink">{name}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 // Section wrapper. Titles use sentence case (see spec #31).
 function ResultsSection({
   eyebrow,
@@ -77,6 +115,29 @@ export default function ResultsPage() {
         title="Where our students have been admitted"
         description="A look at the specialized programs, colleges, and medical and BS/MD pathways students have earned admission to while working with Personalized Pathways."
       />
+
+      {/* Stats band */}
+      <section className="border-b border-line bg-brand-deep py-12">
+        <Container>
+          <dl className="grid grid-cols-2 gap-6 text-center lg:grid-cols-4">
+            {[
+              { n: "50+", l: "College & university acceptances" },
+              { n: `${bsMdPrograms.length}`, l: "BS/MD program admissions" },
+              { n: "$2M+", l: "In scholarships & merit aid" },
+              { n: `${medSchools.length}`, l: "Medical school admissions" },
+            ].map((s) => (
+              <div key={s.l}>
+                <dt className="font-serif text-4xl font-semibold text-white">
+                  {s.n}
+                </dt>
+                <dd className="mt-1 text-sm leading-snug text-cream-deep/80">
+                  {s.l}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </Container>
+      </section>
 
       {/* Testimonials */}
       <section className="py-16">
@@ -187,7 +248,7 @@ export default function ResultsPage() {
         title="Colleges and universities"
         description="A sample of the schools students have been admitted to."
       >
-        <Chips items={colleges} />
+        <SchoolBadges items={colleges} />
       </ResultsSection>
 
       {/* Scholarships */}

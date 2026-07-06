@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Container from "./Container";
 import { Button } from "./Button";
-import { mainNav, siteConfig } from "@/data/siteConfig";
+import { mainNav, siteConfig, consultationHref } from "@/data/siteConfig";
 
 export default function Header() {
   const pathname = usePathname();
@@ -48,7 +48,7 @@ export default function Header() {
         </nav>
 
         <div className="hidden lg:block">
-          <Button href="/contact" className="px-5 py-2.5">
+          <Button href={consultationHref} className="px-5 py-2.5">
             Schedule a consultation
           </Button>
         </div>
@@ -89,7 +89,7 @@ export default function Header() {
                 {item.label}
               </Link>
             ))}
-            <Button href="/contact" className="mt-2" onClick={() => setOpen(false)}>
+            <Button href={consultationHref} className="mt-2" onClick={() => setOpen(false)}>
               Schedule a consultation
             </Button>
           </Container>

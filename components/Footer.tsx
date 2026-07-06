@@ -44,24 +44,13 @@ export default function Footer() {
             <p className="font-semibold text-ink">Get in touch</p>
             <ul className="mt-3 space-y-2">
               <li>
-                <Link
-                  href="/contact"
+                <a
+                  href={`mailto:${siteConfig.email}`}
                   className="text-ink-soft transition-colors hover:text-clay-dark"
                 >
-                  Contact Personalized Pathways
-                </Link>
+                  {siteConfig.email}
+                </a>
               </li>
-              {/* TODO_ADD_EMAIL — once a real email is set in siteConfig, it appears below. */}
-              {siteConfig.email !== "TODO_ADD_EMAIL" && (
-                <li>
-                  <a
-                    href={`mailto:${siteConfig.email}`}
-                    className="text-ink-soft transition-colors hover:text-clay-dark"
-                  >
-                    {siteConfig.email}
-                  </a>
-                </li>
-              )}
             </ul>
             <p className="mt-4 text-xs leading-relaxed text-ink-muted">
               {legal.privacyNote}

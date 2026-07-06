@@ -114,6 +114,14 @@ export const faqs: Faq[] = [
     ],
   },
   {
+    question: "Do we need to be local to work with you?",
+    answer: [
+      "Not at all. We work with students and families nationwide, so there is no need to be local or meet in person.",
+      "In fact, much of the college planning and application process is well suited to a virtual format. From brainstorming and essay development to building a college list, refining application strategy, planning for scholarships, and managing deadlines, everything can be handled effectively online. Remote meetings also make it easier to include parents or guardians who may be in different locations.",
+      "What matters most is a clear understanding of each student's goals, academic environment, and family priorities. With that insight, we create a personalized, strategic plan, no matter where you are located.",
+    ],
+  },
+  {
     question: "Can you help if we are already behind?",
     answer: [
       "Yes. When deadlines are close, we help families figure out what needs to happen first, what can still be strengthened, and where the student's remaining time and energy should go. Sometimes the most useful support is a focused, realistic plan instead of trying to fix everything at once.",

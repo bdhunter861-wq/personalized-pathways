@@ -1,12 +1,13 @@
 import Container from "./Container";
 import { Button } from "./Button";
+import { consultationHref } from "@/data/siteConfig";
 
 // Bottom-of-page call to action. Customizable text, sensible defaults.
 export default function CTASection({
   title = "Let's talk about where your student is right now.",
   description = "A consultation is the simplest place to start. We'll look at where things stand and figure out what kind of support actually fits.",
   primaryLabel = "Schedule a consultation",
-  primaryHref = "/contact",
+  primaryHref = consultationHref,
   secondaryLabel = "View services",
   secondaryHref = "/services",
 }: {

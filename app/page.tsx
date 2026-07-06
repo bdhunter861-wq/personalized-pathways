@@ -5,7 +5,7 @@ import ApplicationTypes from "@/components/ApplicationTypes";
 import CTASection from "@/components/CTASection";
 import { Button } from "@/components/Button";
 import { services, featuredServiceIds } from "@/data/services";
-import { siteConfig } from "@/data/siteConfig";
+import { siteConfig, consultationHref } from "@/data/siteConfig";
 
 // "What we help students do" — client-provided copy.
 const whatWeHelp = [
@@ -84,7 +84,7 @@ export default function HomePage() {
               </div>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Button href="/contact">Schedule a consultation</Button>
+                <Button href={consultationHref}>Schedule a consultation</Button>
                 <Button href="/services" variant="secondary">
                   View services
                 </Button>
