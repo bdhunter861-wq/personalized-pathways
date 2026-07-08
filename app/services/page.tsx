@@ -4,6 +4,7 @@ import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import PricingTable from "@/components/PricingTable";
 import ApplicationTypes from "@/components/ApplicationTypes";
+import Backdrop from "@/components/Backdrop";
 import CTASection from "@/components/CTASection";
 import { Button } from "@/components/Button";
 import { services, servicesNote } from "@/data/services";
@@ -64,8 +65,9 @@ export default function ServicesPage() {
       />
 
       {/* Who this is for */}
-      <section className="py-20">
-        <Container>
+      <section className="relative overflow-hidden py-20">
+        <Backdrop />
+        <Container className="relative">
           <SectionHeading
             eyebrow="Who this is for"
             title="Support at different stages"

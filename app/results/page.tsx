@@ -3,6 +3,7 @@ import Container from "@/components/Container";
 import PageHero from "@/components/PageHero";
 import CTASection from "@/components/CTASection";
 import SchoolLogo from "@/components/SchoolLogo";
+import Backdrop from "@/components/Backdrop";
 import {
   colleges,
   specializedPlacements,
@@ -78,8 +79,11 @@ function ResultsSection({
   tint?: boolean;
 }) {
   return (
-    <section className={tint ? "bg-cream-deep/50 py-16" : "py-16"}>
-      <Container>
+    <section
+      className={`relative overflow-hidden py-16 ${tint ? "bg-cream-deep/50" : ""}`}
+    >
+      <Backdrop dots={tint} />
+      <Container className="relative">
         <p className="text-sm font-semibold uppercase tracking-[0.16em] text-clay-dark">
           {eyebrow}
         </p>
@@ -200,7 +204,7 @@ export default function ResultsPage() {
         title="Medical school admissions"
         description="Students supported through medical school applications have been admitted to programs including these."
       >
-        <SchoolBadges items={medSchools} />
+        <Chips items={medSchools} />
       </ResultsSection>
 
       {/* BS/MD */}
@@ -210,7 +214,7 @@ export default function ResultsPage() {
         description="Competitive combined-degree programs students have earned admission to."
         tint
       >
-        <SchoolBadges items={bsMdPrograms} />
+        <Chips items={bsMdPrograms} />
       </ResultsSection>
 
       {/* Honors colleges */}

@@ -2,6 +2,7 @@ import Container from "@/components/Container";
 import SectionHeading from "@/components/SectionHeading";
 import ServiceCard from "@/components/ServiceCard";
 import ApplicationTypes from "@/components/ApplicationTypes";
+import Backdrop from "@/components/Backdrop";
 import CTASection from "@/components/CTASection";
 import { Button } from "@/components/Button";
 import { services, featuredServiceIds } from "@/data/services";
@@ -123,8 +124,9 @@ export default function HomePage() {
       </section>
 
       {/* Experience → strategy: a clear 3-step visual moment */}
-      <section className="border-b border-line bg-cream-deep/40 py-16">
-        <Container>
+      <section className="relative overflow-hidden border-b border-line bg-cream-deep/40 py-16">
+        <Backdrop dots />
+        <Container className="relative">
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.16em] text-clay-dark">
               How it works
@@ -236,8 +238,9 @@ export default function HomePage() {
       </section>
 
       {/* What we help students do */}
-      <section className="py-20">
-        <Container>
+      <section className="relative overflow-hidden py-20">
+        <Backdrop />
+        <Container className="relative">
           <SectionHeading
             eyebrow="What we do"
             title="What we help students do"
@@ -263,8 +266,9 @@ export default function HomePage() {
       </section>
 
       {/* Support that fits the family (services preview) */}
-      <section className="bg-cream-deep/60 py-20">
-        <Container>
+      <section className="relative overflow-hidden bg-cream-deep/60 py-20">
+        <Backdrop dots />
+        <Container className="relative">
           <SectionHeading
             eyebrow="Services"
             title="Support that fits the family"

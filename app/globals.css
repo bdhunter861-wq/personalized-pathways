@@ -101,6 +101,21 @@ body {
   transform: translateY(-3px);
 }
 
+/* Subtle dot-grid texture for section backgrounds. */
+.bg-dots {
+  background-image: radial-gradient(var(--color-line) 1.1px, transparent 1.1px);
+  background-size: 22px 22px;
+}
+
+/* Faint brand-tinted dot grid. */
+.bg-dots-brand {
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--color-brand-blue) 22%, transparent) 1.1px,
+    transparent 1.1px
+  );
+  background-size: 24px 24px;
+}
+
 /* Visible, accessible focus ring for keyboard users. */
 :focus-visible {
   outline: 2px solid var(--color-clay);

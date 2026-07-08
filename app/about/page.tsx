@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Container from "@/components/Container";
 import PageHero from "@/components/PageHero";
+import Backdrop from "@/components/Backdrop";
 import CTASection from "@/components/CTASection";
 
 export const metadata: Metadata = {
@@ -122,8 +123,9 @@ export default function AboutPage() {
       </section>
 
       {/* Meet the team */}
-      <section className="border-t border-line bg-cream-deep/50 py-20">
-        <Container>
+      <section className="relative overflow-hidden border-t border-line bg-cream-deep/50 py-20">
+        <Backdrop dots />
+        <Container className="relative">
           <p className="text-center text-sm font-semibold uppercase tracking-[0.18em] text-clay-dark">
             Meet the team
           </p>

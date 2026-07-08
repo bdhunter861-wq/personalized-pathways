@@ -19,6 +19,10 @@ export default function PageHero({
     <section className="relative overflow-hidden border-b border-line bg-cream-deep/50">
       <div
         aria-hidden="true"
+        className="bg-dots-brand pointer-events-none absolute inset-0 opacity-40"
+      />
+      <div
+        aria-hidden="true"
         className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-brand-green/10 blur-3xl"
       />
       <div

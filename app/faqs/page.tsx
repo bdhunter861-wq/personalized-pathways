@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Container from "@/components/Container";
 import PageHero from "@/components/PageHero";
 import FAQList from "@/components/FAQList";
+import Backdrop from "@/components/Backdrop";
 import CTASection from "@/components/CTASection";
 import { faqs } from "@/data/faqs";
 
@@ -31,8 +32,9 @@ export default function FAQsPage() {
         description="Honest answers, including what this work can and cannot do. If your question is not here, reach out."
       />
 
-      <section className="py-16 lg:py-20">
-        <Container>
+      <section className="relative overflow-hidden py-16 lg:py-20">
+        <Backdrop dots />
+        <Container className="relative">
           <div className="mx-auto max-w-3xl">
             <FAQList items={faqs} />
           </div>

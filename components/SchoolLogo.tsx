@@ -12,8 +12,9 @@ function initial(name: string) {
 }
 
 // Logo source. Swap this one function to change the logo service.
+// Google's favicon service reliably returns each school's icon/crest.
 function logoUrl(domain: string) {
-  return `https://logo.clearbit.com/${domain}?size=80`;
+  return `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
 }
 
 // Renders a school's logo (fetched by domain from a logo service). If there's
