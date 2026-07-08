@@ -38,7 +38,8 @@ function Chips({ items }: { items: string[] }) {
   );
 }
 
-// School list as badge cards with real logos (monogram fallback).
+// School list as badge cards with real logos (monogram fallback). Each card
+// links to the school's official website when a domain is known.
 function SchoolBadges({ items }: { items: string[] }) {
   const tones = [
     "bg-clay-soft text-clay-dark",
@@ -47,19 +48,36 @@ function SchoolBadges({ items }: { items: string[] }) {
   ];
   return (
     <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-      {items.map((name, i) => (
-        <li
-          key={name}
-          className="lift flex items-center gap-3 rounded-xl border border-line bg-card px-4 py-3 shadow-sm"
-        >
-          <SchoolLogo
-            name={name}
-            domain={schoolDomains[name]}
-            tone={tones[i % tones.length]}
-          />
-          <span className="text-sm font-medium leading-snug text-ink">{name}</span>
-        </li>
-      ))}
+      {items.map((name, i) => {
+        const domain = schoolDomains[name];
+        const inner = (
+          <>
+            <SchoolLogo name={name} domain={domain} tone={tones[i % tones.length]} />
+            <span className="text-sm font-medium leading-snug text-ink">{name}</span>
+          </>
+        );
+        return (
+          <li key={name}>
+            {domain ? (
+              <a
+                href={`https://${domain}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="lift flex h-full items-center gap-3 rounded-xl border border-line bg-card px-4 py-3 shadow-sm transition-colors hover:border-clay hover:bg-clay-soft/20"
+              >
+                {inner}
+                <span aria-hidden="true" className="ml-auto text-ink-muted">
+                  ↗
+                </span>
+              </a>
+            ) : (
+              <div className="flex h-full items-center gap-3 rounded-xl border border-line bg-card px-4 py-3 shadow-sm">
+                {inner}
+              </div>
+            )}
+          </li>
+        );
+      })}
     </ul>
   );
 }

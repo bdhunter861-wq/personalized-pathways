@@ -96,8 +96,9 @@ export default function AboutPage() {
       />
 
       {/* About Personalized Pathways */}
-      <section className="py-20">
-        <Container>
+      <section className="relative overflow-hidden py-20">
+        <Backdrop />
+        <Container className="relative">
           <div className="mx-auto max-w-3xl space-y-5 text-lg leading-relaxed text-ink-soft">
             <p>
               We work with students at different stages of the process, from

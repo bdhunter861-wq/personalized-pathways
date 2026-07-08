@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Container from "@/components/Container";
 import PageHero from "@/components/PageHero";
 import ConsultationForm from "@/components/ConsultationForm";
+import Backdrop from "@/components/Backdrop";
 import { siteConfig, legal } from "@/data/siteConfig";
 
 export const metadata: Metadata = {
@@ -20,8 +21,9 @@ export default function ConsultationPage() {
         description="Tell us a little about your student and what you're looking for. When you send the form, your email program opens with everything filled in, ready to go to Personalized Pathways."
       />
 
-      <section className="py-16 lg:py-20">
-        <Container>
+      <section className="relative overflow-hidden py-16 lg:py-20">
+        <Backdrop dots />
+        <Container className="relative">
           <div className="grid gap-12 lg:grid-cols-[1fr_360px]">
             {/* Form */}
             <div>

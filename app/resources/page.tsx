@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Container from "@/components/Container";
 import PageHero from "@/components/PageHero";
 import ResourceCard from "@/components/ResourceCard";
+import Backdrop from "@/components/Backdrop";
 import CTASection from "@/components/CTASection";
 import { resources } from "@/data/resources";
 
@@ -20,8 +21,9 @@ export default function ResourcesPage() {
         description="Short, practical pieces on the parts of the college process families ask about most. New articles are on the way."
       />
 
-      <section className="py-20">
-        <Container>
+      <section className="relative overflow-hidden py-20">
+        <Backdrop dots />
+        <Container className="relative">
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {resources.map((resource) => (
               <ResourceCard key={resource.slug} resource={resource} />

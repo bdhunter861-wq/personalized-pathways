@@ -18,6 +18,9 @@ function logoUrl(domain: string) {
   return `https://icons.duckduckgo.com/ip3/${domain}.ico`;
 }
 
+// Domains whose fetched icon is blank/broken; force the clean monogram instead.
+const FORCE_MONOGRAM = new Set<string>(["vanderbilt.edu"]);
+
 // Renders a school's logo (fetched by domain from a logo service). If there's
 // no domain or the logo fails to load, it falls back to a colored monogram.
 export default function SchoolLogo({
@@ -29,7 +32,9 @@ export default function SchoolLogo({
   domain?: string;
   tone: string;
 }) {
-  const [showLogo, setShowLogo] = useState(Boolean(domain));
+  const [showLogo, setShowLogo] = useState(
+    Boolean(domain) && !FORCE_MONOGRAM.has(domain ?? ""),
+  );
 
   if (domain && showLogo) {
     return (
