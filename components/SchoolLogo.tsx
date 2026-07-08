@@ -12,9 +12,10 @@ function initial(name: string) {
 }
 
 // Logo source. Swap this one function to change the logo service.
-// Google's favicon service reliably returns each school's icon/crest.
+// DuckDuckGo fetches each site's favicon directly and returns a 404 when there
+// isn't one (so we fall back to a clean monogram instead of a generic globe).
 function logoUrl(domain: string) {
-  return `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
+  return `https://icons.duckduckgo.com/ip3/${domain}.ico`;
 }
 
 // Renders a school's logo (fetched by domain from a logo service). If there's
