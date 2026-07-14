@@ -215,6 +215,11 @@ export type Testimonial = {
   quote: string;
   role: "student" | "parent";
   name?: string;
+  // Optional student photo + details (shown card-style when present).
+  image?: string;
+  college?: string;
+  collegeDomain?: string; // for the college logo badge on the photo
+  areaOfStudy?: string;
 };
 
 export const testimonials: Testimonial[] = [
@@ -253,12 +258,14 @@ export const testimonials: Testimonial[] = [
       "Meaghan and Dr. Anthony made the college application process easy and approachable, especially for us as parents new to it. Our rising senior loved working with them both, and they helped her achieve her dream school!",
     role: "parent",
     name: "Stacey",
+    image: "/testimonials/stacey.jpg",
   },
   {
     quote:
       "Dr. Anthony was very insightful and provided genuinely helpful essay and admission advice that went far beyond the basics of writing and tackled questions about the core of my character. She was timely, easy to work with, and put countless hours outside of our scheduled meetings into every step of the process.",
     role: "student",
     name: "Kiran",
+    image: "/testimonials/kiran.jpg",
   },
   {
     quote:
@@ -271,5 +278,9 @@ export const testimonials: Testimonial[] = [
       "Our family is incredibly grateful for the guidance and dedication of Meaghan and Dr. Anthony throughout my son's college application process. Their expertise, encouragement, and personalized support played a huge role in helping him earn acceptance to the Frost School of Music at the University of Miami. We wholeheartedly recommend them to any family.",
     role: "parent",
     name: "Amanda",
+    image: "/testimonials/dylan.jpg",
+    college: "University of Miami",
+    collegeDomain: "miami.edu",
+    areaOfStudy: "Frost School of Music",
   },
 ];

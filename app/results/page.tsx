@@ -226,7 +226,25 @@ export default function ResultsPage() {
         </Container>
       </section>
 
-      {/* Distinctive achievements first */}
+      {/* Testimonials — near the top */}
+      <ResultsSection
+        eyebrow="In their words"
+        title="What students and families say"
+        description="Real experiences from the students and parents we've worked with. Use the arrows to move through them."
+        tint
+      >
+        {testimonials.length > 0 ? (
+          <TestimonialSlider items={testimonials} />
+        ) : (
+          <div className="mt-8 max-w-2xl rounded-2xl border border-line bg-card p-8 shadow-sm">
+            <p className="font-serif text-xl font-semibold text-ink">
+              Testimonials coming soon.
+            </p>
+          </div>
+        )}
+      </ResultsSection>
+
+      {/* Distinctive achievements */}
       <ResultsSection
         eyebrow="Specialized"
         title="Performing arts, athletics & specialized programs"
@@ -286,24 +304,6 @@ export default function ResultsPage() {
         <p className="mt-4 max-w-3xl text-lg leading-relaxed text-ink-soft">
           {scholarshipStatement}
         </p>
-      </ResultsSection>
-
-      {/* Testimonials */}
-      <ResultsSection
-        eyebrow="In their words"
-        title="What students and families say"
-        description="Real experiences from the students and parents we've worked with. Use the arrows to move through them."
-        tint
-      >
-        {testimonials.length > 0 ? (
-          <TestimonialSlider items={testimonials} />
-        ) : (
-          <div className="mt-8 max-w-2xl rounded-2xl border border-line bg-card p-8 shadow-sm">
-            <p className="font-serif text-xl font-semibold text-ink">
-              Testimonials coming soon.
-            </p>
-          </div>
-        )}
       </ResultsSection>
 
       {/* Disclaimer */}

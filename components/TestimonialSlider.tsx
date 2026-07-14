@@ -2,11 +2,17 @@
 
 import { useRef, useState } from "react";
 import type { Testimonial } from "@/data/results";
+import TestimonialCard from "./TestimonialCard";
 
 export default function TestimonialSlider({ items }: { items: Testimonial[] }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [atStart, setAtStart] = useState(true);
   const [atEnd, setAtEnd] = useState(false);
+
+  // Show the ones with student photos first for a stronger opening.
+  const ordered = [...items].sort(
+    (a, b) => (b.image ? 1 : 0) - (a.image ? 1 : 0),
+  );
 
   function updateEdges() {
     const el = trackRef.current;
@@ -26,35 +32,16 @@ export default function TestimonialSlider({ items }: { items: Testimonial[] }) {
       <div
         ref={trackRef}
         onScroll={updateEdges}
-        className="no-scrollbar flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-2"
+        className="no-scrollbar flex snap-x snap-mandatory items-stretch gap-6 overflow-x-auto scroll-smooth pb-2"
       >
-        {items.map((t, i) => {
-          const isParent = t.role === "parent";
-          return (
-            <figure
-              key={i}
-              className="flex shrink-0 basis-full snap-start flex-col rounded-2xl border border-line bg-card p-7 shadow-sm sm:basis-[calc(50%-12px)] lg:basis-[calc(33.333%-16px)]"
-            >
-              <span
-                aria-hidden="true"
-                className="font-serif text-5xl leading-none text-clay/25"
-              >
-                &ldquo;
-              </span>
-              <blockquote className="-mt-4 flex-1 text-[0.95rem] leading-relaxed text-ink-soft">
-                {t.quote}
-              </blockquote>
-              <figcaption className="mt-5 border-t border-line pt-4 text-sm font-semibold">
-                <span className={isParent ? "text-sage" : "text-clay-dark"}>
-                  {isParent ? "Parent" : "Student"}
-                </span>
-                {t.name && (
-                  <span className="font-normal text-ink-soft"> · {t.name}</span>
-                )}
-              </figcaption>
-            </figure>
-          );
-        })}
+        {ordered.map((t, i) => (
+          <div
+            key={i}
+            className="shrink-0 basis-full snap-start sm:basis-[calc(50%-12px)] lg:basis-[calc(33.333%-16px)]"
+          >
+            <TestimonialCard t={t} />
+          </div>
+        ))}
       </div>
 
       {/* Controls */}
