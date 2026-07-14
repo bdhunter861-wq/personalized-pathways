@@ -22,37 +22,79 @@ export const metadata: Metadata = {
     "Colleges, specialized and performing-arts programs, medical schools, BS/MD programs, honors colleges, and scholarships earned by students who worked with Personalized Pathways.",
 };
 
-// Compact, wrapping chips so long lists never leave a sparse partial grid row.
-function Chips({ items }: { items: string[] }) {
+type CardItem = { name: string; domain?: string; tag?: string };
+
+const TONES = [
+  "bg-clay-soft text-clay-dark",
+  "bg-sage-soft text-sage",
+  "bg-cream-deep text-ink",
+];
+
+// Prominent card for the feature sections (arts, honors, medical, BS/MD, etc.):
+// a large logo, the school name, and a program tag. Links to the school site.
+function FeatureGrid({ items }: { items: CardItem[] }) {
   return (
-    <ul className="mt-6 flex flex-wrap gap-2.5">
-      {items.map((name) => (
-        <li
-          key={name}
-          className="rounded-full border border-line bg-card px-3.5 py-1.5 text-sm font-medium text-ink shadow-sm"
-        >
-          {name}
-        </li>
-      ))}
+    <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {items.map((it, i) => {
+        const inner = (
+          <>
+            <SchoolLogo
+              name={it.name}
+              domain={it.domain}
+              tone={TONES[i % TONES.length]}
+              size="lg"
+            />
+            <div>
+              <p className="font-serif text-lg font-semibold leading-snug text-ink">
+                {it.name}
+              </p>
+              {it.tag && (
+                <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-clay-dark">
+                  {it.tag}
+                </p>
+              )}
+            </div>
+          </>
+        );
+        const base =
+          "flex h-full flex-col items-center gap-4 rounded-2xl border border-line bg-card p-6 text-center shadow-sm";
+        return (
+          <li key={`${it.name}-${it.tag ?? ""}`}>
+            {it.domain ? (
+              <a
+                href={`https://${it.domain}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`lift group ${base} transition-colors hover:border-clay hover:shadow-md`}
+              >
+                <div className="brand-rule h-1 w-10 rounded-full opacity-60 transition group-hover:w-16 group-hover:opacity-100" />
+                {inner}
+                <span className="mt-auto text-xs font-medium text-ink-muted">
+                  Visit site ↗
+                </span>
+              </a>
+            ) : (
+              <div className={base}>
+                <div className="brand-rule h-1 w-10 rounded-full opacity-60" />
+                {inner}
+              </div>
+            )}
+          </li>
+        );
+      })}
     </ul>
   );
 }
 
-// School list as badge cards with real logos (monogram fallback). Each card
-// links to the school's official website when a domain is known.
-function SchoolBadges({ items }: { items: string[] }) {
-  const tones = [
-    "bg-clay-soft text-clay-dark",
-    "bg-sage-soft text-sage",
-    "bg-cream-deep text-ink",
-  ];
+// Compact row cards for the long Colleges & universities list (logo + name).
+function CollegeGrid({ items }: { items: string[] }) {
   return (
-    <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+    <ul className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
       {items.map((name, i) => {
         const domain = schoolDomains[name];
         const inner = (
           <>
-            <SchoolLogo name={name} domain={domain} tone={tones[i % tones.length]} />
+            <SchoolLogo name={name} domain={domain} tone={TONES[i % TONES.length]} />
             <span className="text-sm font-medium leading-snug text-ink">{name}</span>
           </>
         );
@@ -82,7 +124,7 @@ function SchoolBadges({ items }: { items: string[] }) {
   );
 }
 
-// Section wrapper. Titles use sentence case (see spec #31).
+// Section wrapper. Titles use sentence case.
 function ResultsSection({
   eyebrow,
   title,
@@ -102,7 +144,8 @@ function ResultsSection({
     >
       <Backdrop dots={tint} />
       <Container className="relative">
-        <p className="text-sm font-semibold uppercase tracking-[0.16em] text-clay-dark">
+        <p className="flex items-center gap-2.5 text-sm font-semibold uppercase tracking-[0.16em] text-clay-dark">
+          <span aria-hidden="true" className="brand-rule h-[3px] w-7 rounded-full" />
           {eyebrow}
         </p>
         <h2 className="mt-2 font-serif text-2xl font-semibold text-ink sm:text-3xl">
@@ -120,17 +163,48 @@ function ResultsSection({
 }
 
 export default function ResultsPage() {
+  // Build card items for the feature sections.
+  const artsItems: CardItem[] = specializedPlacements.map((p) => ({
+    name: p.school,
+    domain: schoolDomains[p.school],
+    tag: p.field,
+  }));
+  const honorsItems: CardItem[] = honorsColleges.map((h) => ({
+    name: h.school,
+    domain: schoolDomains[h.school],
+    tag: h.program,
+  }));
+  const competitiveItems: CardItem[] = competitiveMajorSchools.map((name) => ({
+    name,
+    domain: schoolDomains[name],
+    tag: "Selective program",
+  }));
+  const medItems: CardItem[] = medSchools.map((name) => ({
+    name,
+    domain: schoolDomains[name],
+    tag: "Medical school",
+  }));
+  const bsMdItems: CardItem[] = bsMdPrograms.map((name) => ({
+    name,
+    domain: schoolDomains[name],
+    tag: "BS/MD program",
+  }));
+
   return (
     <>
       <PageHero
         eyebrow="Results & testimonials"
         title="Where our students have been admitted"
-        description="A look at the specialized programs, colleges, and medical and BS/MD pathways students have earned admission to while working with Personalized Pathways."
+        description="A look at the specialized programs, honors colleges, medical and BS/MD pathways, scholarships, and the full breadth of colleges students have earned admission to while working with Personalized Pathways."
       />
 
       {/* Stats band */}
-      <section className="border-b border-line bg-brand-deep py-12">
-        <Container>
+      <section className="relative overflow-hidden border-b border-line bg-brand-deep py-12">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-brand-green/20 blur-3xl"
+        />
+        <Container className="relative">
           <dl className="grid grid-cols-2 gap-6 text-center lg:grid-cols-4">
             {[
               { n: "50+", l: "College & university acceptances" },
@@ -151,129 +225,106 @@ export default function ResultsPage() {
         </Container>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-16">
-        <Container>
-          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-clay-dark">
-            In their words
-          </p>
-          <h2 className="mt-2 font-serif text-2xl font-semibold text-ink sm:text-3xl">
-            From students and families
-          </h2>
-          {testimonials.length > 0 ? (
-            <div className="mt-8 grid gap-6 md:grid-cols-2">
-              {testimonials.map((t, i) => (
-                <figure
-                  key={i}
-                  className="rounded-2xl border border-line bg-card p-7 shadow-sm"
-                >
-                  <blockquote className="font-serif text-lg leading-relaxed text-ink">
-                    &ldquo;{t.quote}&rdquo;
-                  </blockquote>
-                  <figcaption className="mt-4 text-sm font-semibold text-clay-dark">
-                    {t.attribution}
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
-          ) : (
-            <div className="mt-8 max-w-2xl rounded-2xl border border-line bg-cream-deep/60 p-8">
-              {/* TODO — add approved testimonials to data/results.ts. When volume
-                  grows, group by category (admissions / scholarships / honors /
-                  experience) and show a curated set with a "show more" control
-                  rather than one long scroll (spec #34). */}
-              <p className="font-serif text-xl font-semibold text-ink">
-                Testimonials coming soon.
-              </p>
-              <p className="mt-3 leading-relaxed text-ink-soft">
-                We're gathering notes from students and families as they finish
-                their applications. Approved quotes will appear here.
-              </p>
-            </div>
-          )}
-        </Container>
-      </section>
-
-      {/* Specialized / performing arts / athletics — placed first (spec #31) */}
+      {/* Distinctive achievements first */}
       <ResultsSection
         eyebrow="Specialized"
-        title="Examples of specialized program placements"
+        title="Performing arts, athletics & specialized programs"
         description="Distinctive placements in competitive arts, music, and athletics programs."
-        tint
       >
-        <ul className="mt-6 flex flex-wrap gap-2.5">
-          {specializedPlacements.map((p) => (
-            <li
-              key={`${p.school}-${p.field}`}
-              className="flex items-center gap-2 rounded-full border border-line bg-card px-3.5 py-1.5 text-sm shadow-sm"
-            >
-              <span className="font-medium text-ink">{p.school}</span>
-              <span className="rounded-full bg-sage-soft px-2 py-0.5 text-xs font-semibold text-sage">
-                {p.field}
-              </span>
-            </li>
-          ))}
-        </ul>
+        <FeatureGrid items={artsItems} />
       </ResultsSection>
 
-      {/* Medical school */}
+      <ResultsSection
+        eyebrow="Honors"
+        title="Honors college admissions"
+        description="Selective honors colleges and programs, which carry their own applications and requirements."
+        tint
+      >
+        <FeatureGrid items={honorsItems} />
+      </ResultsSection>
+
+      <ResultsSection
+        eyebrow="Competitive majors"
+        title="Highly competitive programs and majors"
+        description="Admissions to selective engineering, business, and computer science programs, which are often harder to get into than the university overall."
+      >
+        <FeatureGrid items={competitiveItems} />
+      </ResultsSection>
+
       <ResultsSection
         eyebrow="Medical school"
         title="Medical school admissions"
         description="Students supported through medical school applications have been admitted to programs including these."
+        tint
       >
-        <Chips items={medSchools} />
+        <FeatureGrid items={medItems} />
       </ResultsSection>
 
-      {/* BS/MD */}
       <ResultsSection
         eyebrow="Combined degree"
         title="BS/MD program admissions"
         description="Competitive combined-degree programs students have earned admission to."
-        tint
       >
-        <Chips items={bsMdPrograms} />
+        <FeatureGrid items={bsMdItems} />
       </ResultsSection>
 
-      {/* Honors colleges */}
-      <ResultsSection
-        eyebrow="Honors"
-        title="Honors college admissions"
-        description="Admissions to selective honors colleges, which carry their own applications and requirements."
-      >
-        <Chips items={honorsColleges} />
-      </ResultsSection>
-
-      {/* Competitive majors */}
-      <ResultsSection
-        eyebrow="Competitive majors"
-        title="Highly competitive programs and majors"
-        description="Admissions to selective engineering, business, and computer science programs, which are often harder to get into than the university overall, at schools including these."
-        tint
-      >
-        <Chips items={competitiveMajorSchools} />
-      </ResultsSection>
-
-      {/* General college list */}
+      {/* Breadth: the full college list */}
       <ResultsSection
         eyebrow="Admissions"
         title="Colleges and universities"
-        description="A sample of the schools students have been admitted to."
+        description="A sample of the many schools students have been admitted to. Select any school to visit its site."
+        tint
       >
-        <SchoolBadges items={colleges} />
+        <CollegeGrid items={colleges} />
       </ResultsSection>
 
       {/* Scholarships */}
-      <ResultsSection
-        eyebrow="Scholarships"
-        title="Scholarships and financial aid"
-        tint
-      >
+      <ResultsSection eyebrow="Scholarships" title="Scholarships and financial aid">
         {/* DRAFT figures — see data/results.ts; needs client sign-off on the
             "$2 million+" aggregate before go-live. */}
-        <p className="mt-4 max-w-3xl leading-relaxed text-ink-soft">
+        <p className="mt-4 max-w-3xl text-lg leading-relaxed text-ink-soft">
           {scholarshipStatement}
         </p>
+      </ResultsSection>
+
+      {/* Testimonials */}
+      <ResultsSection
+        eyebrow="In their words"
+        title="What students and families say"
+        description="Real experiences from the students and parents we've worked with."
+        tint
+      >
+        {testimonials.length > 0 ? (
+          <div className="mt-8 grid gap-6 md:grid-cols-2">
+            {testimonials.map((t, i) => (
+              <figure
+                key={i}
+                className="lift flex flex-col rounded-2xl border border-line bg-card p-7 shadow-sm"
+              >
+                <span aria-hidden="true" className="font-serif text-4xl leading-none text-clay/30">
+                  &ldquo;
+                </span>
+                <blockquote className="-mt-2 font-serif text-lg leading-relaxed text-ink">
+                  {t.quote}
+                </blockquote>
+                <figcaption className="mt-4 text-sm font-semibold text-clay-dark">
+                  {t.attribution}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        ) : (
+          <div className="mt-8 max-w-2xl rounded-2xl border border-line bg-card p-8 shadow-sm">
+            {/* TODO — add approved testimonials to data/results.ts. */}
+            <p className="font-serif text-xl font-semibold text-ink">
+              Testimonials coming soon.
+            </p>
+            <p className="mt-3 leading-relaxed text-ink-soft">
+              We&rsquo;re gathering notes from students and families as they finish
+              their applications. Approved quotes will appear here.
+            </p>
+          </div>
+        )}
       </ResultsSection>
 
       {/* Disclaimer */}

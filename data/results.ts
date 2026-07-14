@@ -41,22 +41,23 @@ export const bsMdPrograms = [
   "Rensselaer Polytechnic Institute (RPI)",
 ];
 
-// Honors college admissions.
+// Honors college admissions. Each has the school (for the logo) and the honors
+// program name (shown as a tag on the card).
 // TODO — CONFIRM this list. These are well-known honors colleges/programs at
 // schools already on the acceptances list, added per the client's note that
 // students have been admitted to honors colleges across many of them. Trim or
 // expand to match actual honors-college admits before go-live.
 export const honorsColleges = [
-  "University of Maryland Honors College",
-  "Purdue University Honors College",
-  "Penn State Schreyer Honors College",
-  "University of Oklahoma Honors College",
-  "Indiana University Hutton Honors College",
-  "University of Oregon Clark Honors College",
-  "Baylor University Honors College",
-  "Colorado State University Honors Program",
-  "University of Denver Honors Program",
-  "Miami University Honors College",
+  { school: "University of Maryland", program: "Honors College" },
+  { school: "Purdue University", program: "Honors College" },
+  { school: "Penn State", program: "Schreyer Honors College" },
+  { school: "University of Oklahoma", program: "Honors College" },
+  { school: "Indiana University", program: "Hutton Honors College" },
+  { school: "University of Oregon", program: "Clark Honors College" },
+  { school: "Baylor University", program: "Honors College" },
+  { school: "Colorado State University", program: "Honors Program" },
+  { school: "University of Denver", program: "Honors Program" },
+  { school: "Miami University (Ohio)", program: "Honors College" },
 ];
 
 // Highly competitive programs/majors (harder than general admission).
@@ -193,6 +194,12 @@ export const schoolDomains: Record<string, string> = {
   "Hofstra University": "hofstra.edu",
   "Indiana University": "indiana.edu",
   "Rensselaer Polytechnic Institute (RPI)": "rpi.edu",
+  // Honors + specialized/arts schools
+  "University of Maryland": "umd.edu",
+  "University of Miami": "miami.edu",
+  "Drexel University": "drexel.edu",
+  "University of Colorado Denver": "ucdenver.edu",
+  "University of Arizona": "arizona.edu",
 };
 
 // DRAFT — needs client sign-off on the "$2 million+" aggregate before go-live.

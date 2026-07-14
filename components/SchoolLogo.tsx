@@ -34,24 +34,32 @@ export default function SchoolLogo({
   name,
   domain,
   tone,
+  size = "sm",
 }: {
   name: string;
   domain?: string;
   tone: string;
+  size?: "sm" | "lg";
 }) {
   const monogramOnly =
     !LOGODEV_TOKEN && Boolean(domain) && FAVICON_BLANK.has(domain ?? "");
   const [showLogo, setShowLogo] = useState(Boolean(domain) && !monogramOnly);
 
+  const box = size === "lg" ? "h-14 w-14" : "h-10 w-10";
+  const img = size === "lg" ? "h-11 w-11" : "h-8 w-8";
+  const text = size === "lg" ? "text-xl" : "text-base";
+
   if (domain && showLogo) {
     return (
-      <span className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-line bg-white">
+      <span
+        className={`flex ${box} shrink-0 items-center justify-center overflow-hidden rounded-full border border-line bg-white`}
+      >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={logoUrl(domain)}
           alt=""
           loading="lazy"
-          className="h-8 w-8 object-contain"
+          className={`${img} object-contain`}
           onError={() => setShowLogo(false)}
         />
       </span>
@@ -60,7 +68,7 @@ export default function SchoolLogo({
 
   return (
     <span
-      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-serif text-base font-semibold ${tone}`}
+      className={`flex ${box} shrink-0 items-center justify-center rounded-full font-serif ${text} font-semibold ${tone}`}
       aria-hidden="true"
     >
       {initial(name)}
