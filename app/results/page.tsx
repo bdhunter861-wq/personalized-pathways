@@ -4,6 +4,7 @@ import PageHero from "@/components/PageHero";
 import CTASection from "@/components/CTASection";
 import SchoolLogo from "@/components/SchoolLogo";
 import Backdrop from "@/components/Backdrop";
+import TestimonialSlider from "@/components/TestimonialSlider";
 import {
   colleges,
   specializedPlacements,
@@ -291,37 +292,15 @@ export default function ResultsPage() {
       <ResultsSection
         eyebrow="In their words"
         title="What students and families say"
-        description="Real experiences from the students and parents we've worked with."
+        description="Real experiences from the students and parents we've worked with. Use the arrows to move through them."
         tint
       >
         {testimonials.length > 0 ? (
-          <div className="mt-8 grid gap-6 md:grid-cols-2">
-            {testimonials.map((t, i) => (
-              <figure
-                key={i}
-                className="lift flex flex-col rounded-2xl border border-line bg-card p-7 shadow-sm"
-              >
-                <span aria-hidden="true" className="font-serif text-4xl leading-none text-clay/30">
-                  &ldquo;
-                </span>
-                <blockquote className="-mt-2 font-serif text-lg leading-relaxed text-ink">
-                  {t.quote}
-                </blockquote>
-                <figcaption className="mt-4 text-sm font-semibold text-clay-dark">
-                  {t.attribution}
-                </figcaption>
-              </figure>
-            ))}
-          </div>
+          <TestimonialSlider items={testimonials} />
         ) : (
           <div className="mt-8 max-w-2xl rounded-2xl border border-line bg-card p-8 shadow-sm">
-            {/* TODO — add approved testimonials to data/results.ts. */}
             <p className="font-serif text-xl font-semibold text-ink">
               Testimonials coming soon.
-            </p>
-            <p className="mt-3 leading-relaxed text-ink-soft">
-              We&rsquo;re gathering notes from students and families as they finish
-              their applications. Approved quotes will appear here.
             </p>
           </div>
         )}

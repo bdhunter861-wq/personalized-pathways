@@ -101,6 +101,15 @@ body {
   transform: translateY(-3px);
 }
 
+/* Hide the horizontal scrollbar on the testimonial slider (still scrollable). */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Subtle dot-grid texture for section backgrounds. */
 .bg-dots {
   background-image: radial-gradient(var(--color-line) 1.1px, transparent 1.1px);

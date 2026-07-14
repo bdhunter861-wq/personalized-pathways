@@ -208,14 +208,68 @@ export const schoolDomains: Record<string, string> = {
 export const scholarshipStatement =
   "Personalized Pathways students have earned scholarships and merit-based financial aid worth well over $2 million, including individual awards up to $280,000, a $240,000 award to a top music program, and scholarships ranging from $1,000 to $10,000 and up at schools nationwide.";
 
-// Testimonials. Real, approved quotes only. Attribute by first name + last
-// initial or "Parent / Student, Class of 20XX". Empty until provided.
+// Testimonials from the client's testimonials document. The detailed student
+// and her parent are kept anonymous per the client's request (name omitted);
+// her statement is split into separate testimonials by topic.
 export type Testimonial = {
   quote: string;
-  attribution: string;
-  category?: "admissions" | "scholarships" | "honors" | "experience";
+  role: "student" | "parent";
+  name?: string;
 };
+
 export const testimonials: Testimonial[] = [
-  // TODO — add approved testimonials, e.g.:
-  // { quote: "…", attribution: "Parent of a 2025 applicant", category: "experience" },
+  {
+    quote:
+      "Dr. Anthony has been instrumental to my college application success. Even before researching colleges and writing essays, she helped me combine my activities, life experiences, culture, and personality into a cohesive personal statement that made everything else much more manageable. Without her guidance, I would have been disorganized and confused about how to tie together seemingly random hobbies and extracurriculars.",
+    role: "student",
+  },
+  {
+    quote:
+      "In the research process, Dr. Anthony is extremely knowledgeable about many colleges and programs, including BS/MD, scholarships, leadership programs, and honors colleges. She was able to give insight on which of my activities should be emphasized more than others.",
+    role: "student",
+  },
+  {
+    quote:
+      "I cannot speak highly enough of Dr. Anthony's essay work. 'Editing' does not do justice to her ability to help my writing come to life. I'm a rather utilitarian writer and find it impossible to stay under strict word counts. With her suggestions I comfortably stayed under the limits and even added vibrancy to my stories, all while keeping my own voice.",
+    role: "student",
+  },
+  {
+    quote:
+      "For special programs that involve interviews, Dr. Anthony helped me prepare in a realistic one-on-one interview, with advice afterward that left me confident and able to answer questions concisely yet thoroughly. With her help, I was accepted into all three of my top program choices.",
+    role: "student",
+  },
+  {
+    quote:
+      "College applications are grueling. The only thing that helped me more than being motivated to succeed was Dr. Anthony's consulting.",
+    role: "student",
+  },
+  {
+    quote:
+      "My student was extremely stressed about the college application process, and I had limited knowledge of how to best help her. Dr. Anthony's guidance carried her through the entire process: connecting extracurriculars into a personal statement, researching schools, writing essays, and preparing for interviews. Some counselors try to write essays for the student, neglecting their voice. Not Dr. Anthony. When my student's writing dipped due to stress, she provided strong support while staying understanding and encouraging. If you want your student to make the best of their applications and reach their full potential, I strongly recommend her.",
+    role: "parent",
+  },
+  {
+    quote:
+      "Meaghan and Dr. Anthony made the college application process easy and approachable, especially for us as parents new to it. Our rising senior loved working with them both, and they helped her achieve her dream school!",
+    role: "parent",
+    name: "Stacey",
+  },
+  {
+    quote:
+      "Dr. Anthony was very insightful and provided genuinely helpful essay and admission advice that went far beyond the basics of writing and tackled questions about the core of my character. She was timely, easy to work with, and put countless hours outside of our scheduled meetings into every step of the process.",
+    role: "student",
+    name: "Kiran",
+  },
+  {
+    quote:
+      "The advice from Dr. Anthony has been highly helpful across the board. I have now watched her support three college applicants: my two children and my niece. She tailored her advice and coaching to each of them, helping them find creative ways to portray their strengths and interests. She also gives great writing guidance.",
+    role: "parent",
+    name: "Beth",
+  },
+  {
+    quote:
+      "Our family is incredibly grateful for the guidance and dedication of Meaghan and Dr. Anthony throughout my son's college application process. Their expertise, encouragement, and personalized support played a huge role in helping him earn acceptance to the Frost School of Music at the University of Miami. We wholeheartedly recommend them to any family.",
+    role: "parent",
+    name: "Amanda",
+  },
 ];
