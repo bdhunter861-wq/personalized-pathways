@@ -83,9 +83,10 @@ body {
   color: transparent;
 }
 
-/* Thin brand accent rule. */
+/* Brand accent rule (gradient only — set height per usage with a Tailwind
+   h-* utility; this class must not declare height itself, since this plain
+   CSS is unlayered and would otherwise always beat a layered h-* utility). */
 .brand-rule {
-  height: 3px;
   background-image: linear-gradient(
     90deg,
     var(--color-brand-blue),
@@ -93,12 +94,12 @@ body {
   );
 }
 
-/* Card hover lift. */
+/* Card hover lift, a little more energetic for a bolder feel. */
 .lift {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .lift:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px) scale(1.015);
 }
 
 /* Hide the horizontal scrollbar on the testimonial slider (still scrollable). */

@@ -52,7 +52,11 @@ export default function CTASection({
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Button href={primaryHref}>{primaryLabel}</Button>
-              <Button href={secondaryHref} variant="secondary" className="bg-transparent text-white hover:text-clay-soft">
+              <Button
+                href={secondaryHref}
+                variant="secondary"
+                className="border-white/40 bg-transparent text-white hover:border-white hover:text-white"
+              >
                 {secondaryLabel}
               </Button>
             </div>

@@ -48,13 +48,13 @@ export default function ApplicationTypes({
         return (
           <li
             key={type.label}
-            className={`lift rounded-xl border border-line bg-card shadow-sm ${
+            className={`lift rounded-2xl border border-line bg-card shadow-sm ${
               variant === "card" ? "p-4" : "p-5"
             }`}
           >
             <span
-              className={`flex h-10 w-10 items-center justify-center rounded-lg ${
-                green ? "bg-sage-soft text-sage" : "bg-clay-soft text-clay-dark"
+              className={`flex h-11 w-11 items-center justify-center rounded-xl text-white shadow-md ${
+                green ? "bg-brand-green shadow-brand-green/30" : "bg-brand-blue shadow-brand-blue/30"
               }`}
             >
               <svg

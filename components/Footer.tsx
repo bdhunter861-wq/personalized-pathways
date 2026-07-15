@@ -7,7 +7,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer className="mt-24 bg-cream-deep">
-      <div className="brand-rule" aria-hidden="true" />
+      <div className="brand-rule h-[5px]" aria-hidden="true" />
       <Container className="py-12">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
           <div className="max-w-sm">

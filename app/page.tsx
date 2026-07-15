@@ -319,7 +319,7 @@ export default function HomePage() {
 
             {/* Why our guidance is different */}
             <div className="lift rounded-2xl border border-clay/30 bg-card p-8 shadow-sm ring-1 ring-clay/10">
-              <div className="brand-rule mb-5 w-16 rounded-full" />
+              <div className="brand-rule mb-5 h-[5px] w-16 rounded-full" />
               <h3 className="font-serif text-2xl font-semibold text-ink">
                 Why our guidance is different
               </h3>

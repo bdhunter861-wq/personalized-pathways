@@ -36,10 +36,10 @@ export default function Header() {
               key={item.href}
               href={item.href}
               aria-current={isActive(item.href) ? "page" : undefined}
-              className={`rounded-full px-3 py-2 text-sm font-medium transition-colors ${
+              className={`rounded-full px-3.5 py-2 text-sm font-semibold transition-colors ${
                 isActive(item.href)
-                  ? "text-clay-dark"
-                  : "text-ink-soft hover:text-ink"
+                  ? "bg-clay-soft text-clay-dark"
+                  : "text-ink-soft hover:bg-cream-deep hover:text-ink"
               }`}
             >
               {item.label}
@@ -48,7 +48,7 @@ export default function Header() {
         </nav>
 
         <div className="hidden lg:block">
-          <Button href={consultationHref} className="px-5 py-2.5">
+          <Button href={consultationHref} className="px-5 py-2.5 shadow-lg shadow-clay/30">
             Schedule a consultation
           </Button>
         </div>
@@ -95,7 +95,7 @@ export default function Header() {
           </Container>
         </div>
       )}
-      <div className="brand-rule" aria-hidden="true" />
+      <div className="brand-rule h-[5px]" aria-hidden="true" />
     </header>
   );
 }

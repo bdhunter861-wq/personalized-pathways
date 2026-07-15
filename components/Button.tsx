@@ -10,13 +10,13 @@ type CommonProps = {
 };
 
 const base =
-  "inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold tracking-wide transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2";
+  "inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold tracking-wide transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2";
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-clay text-white hover:bg-clay-dark shadow-sm shadow-clay/20",
+    "bg-clay text-white hover:bg-clay-dark shadow-md shadow-clay/30 hover:shadow-lg hover:shadow-clay/40 hover:-translate-y-0.5",
   secondary:
-    "border border-line bg-card text-ink hover:border-clay hover:text-clay-dark",
+    "border-2 border-line bg-card text-ink hover:border-clay hover:text-clay-dark hover:-translate-y-0.5",
 };
 
 function classesFor(variant: Variant, className: string) {
