@@ -2,10 +2,9 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import SchoolLogo from "./SchoolLogo";
 import type { Testimonial } from "@/data/results";
 
-const WORD_LIMIT = 34;
+const WORD_LIMIT = 26;
 
 export default function TestimonialCard({ t }: { t: Testimonial }) {
   const [open, setOpen] = useState(false);
@@ -14,54 +13,44 @@ export default function TestimonialCard({ t }: { t: Testimonial }) {
   const long = words.length > WORD_LIMIT;
   const shown = !long || open ? t.quote : words.slice(0, WORD_LIMIT).join(" ") + "…";
 
-  const hasBadge = Boolean(t.image && t.collegeDomain);
+  const roleLabel = isParent ? "Parent" : "Student";
+  const roleColor = isParent ? "text-sage" : "text-clay-dark";
 
   return (
     <figure className="flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-card shadow-sm">
       {t.image ? (
-        <div className="relative">
-          <div className="relative aspect-[4/5] w-full overflow-hidden bg-cream-deep">
-            <Image
-              src={t.image}
-              alt=""
-              fill
-              sizes="(max-width: 640px) 100vw, 360px"
-              className="object-cover object-top"
-            />
-          </div>
-          {t.collegeDomain && (
-            <span className="absolute -bottom-7 right-5 flex h-16 w-16 items-center justify-center rounded-full border-4 border-card bg-white shadow-md">
-              <SchoolLogo
-                name={t.college ?? ""}
-                domain={t.collegeDomain}
-                tone="bg-clay-soft text-clay-dark"
-                size="lg"
-              />
-            </span>
-          )}
+        <div className="relative aspect-[4/3] w-full overflow-hidden bg-cream-deep">
+          <Image
+            src={t.image}
+            alt=""
+            fill
+            sizes="(max-width: 640px) 100vw, 360px"
+            className="object-cover object-top"
+          />
         </div>
       ) : (
-        // No photo: a branded cover panel so every card is the same size.
-        <div className="bg-brand-deep flex aspect-[4/5] flex-col items-center justify-center gap-2 p-6 text-center">
-          <span aria-hidden="true" className="font-serif text-7xl leading-none text-white/40">
-            &ldquo;
-          </span>
-          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white/90">
-            {isParent ? "Parent" : "Student"}
-          </span>
+        // Branded stand-in for cards without a student photo.
+        <div className="bg-brand-deep relative flex aspect-[4/3] items-center justify-center overflow-hidden">
+          <div className="bg-dots-brand absolute inset-0 opacity-20" />
+          <div className="relative flex flex-col items-center gap-2">
+            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/15 font-serif text-3xl text-white">
+              {t.name ? t.name.charAt(0) : "“"}
+            </span>
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white/90">
+              {roleLabel}
+            </span>
+          </div>
         </div>
       )}
 
-      <div className={`flex flex-1 flex-col px-6 pb-6 ${hasBadge ? "pt-10" : "pt-6"}`}>
-        <div className="text-sm">
-          <span className={isParent ? "font-semibold text-sage" : "font-semibold text-clay-dark"}>
-            {isParent ? "Parent" : "Student"}
-          </span>
-          {t.name && <span className="text-ink-soft"> · {t.name}</span>}
+      <div className="flex flex-1 flex-col p-5">
+        <div className="text-sm font-semibold">
+          <span className={roleColor}>{roleLabel}</span>
+          {t.name && <span className="font-normal text-ink-soft"> · {t.name}</span>}
         </div>
 
         {(t.college || t.areaOfStudy) && (
-          <div className="mt-2 space-y-0.5 text-sm text-ink-soft">
+          <div className="mt-1.5 space-y-0.5 text-sm text-ink-soft">
             {t.college && (
               <p>
                 <span className="font-semibold text-ink">College:</span> {t.college}
@@ -76,7 +65,7 @@ export default function TestimonialCard({ t }: { t: Testimonial }) {
           </div>
         )}
 
-        <blockquote className="mt-3 flex-1 text-[0.95rem] leading-relaxed text-ink-soft">
+        <blockquote className="mt-2.5 flex-1 text-sm leading-relaxed text-ink-soft">
           {shown}
         </blockquote>
 
@@ -84,7 +73,7 @@ export default function TestimonialCard({ t }: { t: Testimonial }) {
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            className="mt-3 w-fit text-sm font-semibold text-clay-dark hover:underline"
+            className="mt-2.5 w-fit text-sm font-semibold text-clay-dark hover:underline"
           >
             {open ? "Show less" : "Read more"}
           </button>
