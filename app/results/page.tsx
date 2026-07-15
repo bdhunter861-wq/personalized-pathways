@@ -5,25 +5,21 @@ import CTASection from "@/components/CTASection";
 import SchoolLogo from "@/components/SchoolLogo";
 import Backdrop from "@/components/Backdrop";
 import TestimonialSlider from "@/components/TestimonialSlider";
+import ScholarshipShowcase from "@/components/ScholarshipShowcase";
 import {
   colleges,
-  specializedPlacements,
-  medSchools,
-  bsMdPrograms,
   honorsColleges,
-  competitiveMajorSchools,
-  scholarshipStatement,
+  competitiveCategories,
   schoolDomains,
   testimonials,
+  type CompetitiveItem,
 } from "@/data/results";
 
 export const metadata: Metadata = {
   title: "Results & Testimonials",
   description:
-    "Colleges, specialized and performing-arts programs, medical schools, BS/MD programs, honors colleges, and scholarships earned by students who worked with Personalized Pathways.",
+    "Scholarships, BS/MD and medical school admissions, competitive majors, athletics, performing arts, honors colleges, and the colleges students have earned admission to while working with Personalized Pathways.",
 };
-
-type CardItem = { name: string; domain?: string; tag?: string };
 
 const TONES = [
   "bg-clay-soft text-clay-dark",
@@ -31,11 +27,11 @@ const TONES = [
   "bg-cream-deep text-ink",
 ];
 
-// Prominent card for the feature sections (arts, honors, medical, BS/MD, etc.):
-// a large logo, the school name, and a program tag. Links to the school site.
-function FeatureGrid({ items }: { items: CardItem[] }) {
+// Prominent card for the feature sections: a large logo, the school name, and
+// a program tag. Links to the school site.
+function FeatureGrid({ items }: { items: CompetitiveItem[] }) {
   return (
-    <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {items.map((it, i) => {
         const inner = (
           <>
@@ -84,6 +80,43 @@ function FeatureGrid({ items }: { items: CardItem[] }) {
         );
       })}
     </ul>
+  );
+}
+
+// A category group within the combined competitive-programs section: a
+// colored label + icon, then its feature grid.
+function CategoryGroup({
+  label,
+  description,
+  accent,
+  items,
+}: {
+  label: string;
+  description: string;
+  accent: "blue" | "green";
+  items: CompetitiveItem[];
+}) {
+  if (items.length === 0) return null;
+  const dot = accent === "blue" ? "bg-brand-blue" : "bg-brand-green";
+  const chip =
+    accent === "blue"
+      ? "bg-clay-soft text-clay-dark"
+      : "bg-sage-soft text-sage";
+  return (
+    <div className="mt-12 first:mt-0">
+      <div className="flex items-center gap-3">
+        <span aria-hidden="true" className={`h-3 w-3 rounded-full ${dot}`} />
+        <h3 className={`inline-flex rounded-full px-3 py-1 font-serif text-lg font-semibold ${chip}`}>
+          {label}
+        </h3>
+      </div>
+      <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink-soft">
+        {description}
+      </p>
+      <div className="mt-5">
+        <FeatureGrid items={items} />
+      </div>
+    </div>
   );
 }
 
@@ -164,39 +197,21 @@ function ResultsSection({
 }
 
 export default function ResultsPage() {
-  // Build card items for the feature sections.
-  const artsItems: CardItem[] = specializedPlacements.map((p) => ({
-    name: p.school,
-    domain: schoolDomains[p.school],
-    tag: p.field,
-  }));
-  const honorsItems: CardItem[] = honorsColleges.map((h) => ({
+  const honorsItems: CompetitiveItem[] = honorsColleges.map((h) => ({
     name: h.school,
     domain: schoolDomains[h.school],
     tag: h.program,
   }));
-  const competitiveItems: CardItem[] = competitiveMajorSchools.map((name) => ({
-    name,
-    domain: schoolDomains[name],
-    tag: "Selective program",
-  }));
-  const medItems: CardItem[] = medSchools.map((name) => ({
-    name,
-    domain: schoolDomains[name],
-    tag: "Medical school",
-  }));
-  const bsMdItems: CardItem[] = bsMdPrograms.map((name) => ({
-    name,
-    domain: schoolDomains[name],
-    tag: "BS/MD program",
-  }));
+
+  const bsMdMedicalCount =
+    competitiveCategories.find((c) => c.key === "bsmd-medical")?.items.length ?? 0;
 
   return (
     <>
       <PageHero
         eyebrow="Results & testimonials"
         title="Where our students have been admitted"
-        description="A look at the specialized programs, honors colleges, medical and BS/MD pathways, scholarships, and the full breadth of colleges students have earned admission to while working with Personalized Pathways."
+        description="A look at scholarships, specialized and competitive programs, honors colleges, and the full breadth of colleges students have earned admission to while working with Personalized Pathways."
       />
 
       {/* Stats band */}
@@ -209,9 +224,9 @@ export default function ResultsPage() {
           <dl className="grid grid-cols-2 gap-6 text-center lg:grid-cols-4">
             {[
               { n: "50+", l: "College & university acceptances" },
-              { n: `${bsMdPrograms.length}`, l: "BS/MD program admissions" },
               { n: "$2M+", l: "In scholarships & merit aid" },
-              { n: `${medSchools.length}`, l: "Medical school admissions" },
+              { n: `${bsMdMedicalCount}+`, l: "BS/MD & medical school admissions" },
+              { n: `${honorsItems.length}+`, l: "Honors college admissions" },
             ].map((s) => (
               <div key={s.l}>
                 <dt className="font-serif text-4xl font-semibold text-white">
@@ -226,7 +241,10 @@ export default function ResultsPage() {
         </Container>
       </section>
 
-      {/* Testimonials — near the top */}
+      {/* Scholarships — elevated, right after the headline stats */}
+      <ScholarshipShowcase />
+
+      {/* Testimonials */}
       <ResultsSection
         eyebrow="In their words"
         title="What students and families say"
@@ -244,13 +262,21 @@ export default function ResultsPage() {
         )}
       </ResultsSection>
 
-      {/* Distinctive achievements */}
+      {/* Combined, categorized competitive-programs section */}
       <ResultsSection
-        eyebrow="Specialized"
-        title="Performing arts, athletics & specialized programs"
-        description="Distinctive placements in competitive arts, music, and athletics programs."
+        eyebrow="Competitive programs"
+        title="Highly competitive programs and majors"
+        description="From combined-degree medical pathways to selective majors, athletics, and the performing arts, each of these carries its own application, and its own bar to clear."
       >
-        <FeatureGrid items={artsItems} />
+        {competitiveCategories.map((cat) => (
+          <CategoryGroup
+            key={cat.key}
+            label={cat.label}
+            description={cat.description}
+            accent={cat.accent}
+            items={cat.items}
+          />
+        ))}
       </ResultsSection>
 
       <ResultsSection
@@ -262,48 +288,13 @@ export default function ResultsPage() {
         <FeatureGrid items={honorsItems} />
       </ResultsSection>
 
-      <ResultsSection
-        eyebrow="Competitive majors"
-        title="Highly competitive programs and majors"
-        description="Admissions to selective engineering, business, and computer science programs, which are often harder to get into than the university overall."
-      >
-        <FeatureGrid items={competitiveItems} />
-      </ResultsSection>
-
-      <ResultsSection
-        eyebrow="Medical school"
-        title="Medical school admissions"
-        description="Students supported through medical school applications have been admitted to programs including these."
-        tint
-      >
-        <FeatureGrid items={medItems} />
-      </ResultsSection>
-
-      <ResultsSection
-        eyebrow="Combined degree"
-        title="BS/MD program admissions"
-        description="Competitive combined-degree programs students have earned admission to."
-      >
-        <FeatureGrid items={bsMdItems} />
-      </ResultsSection>
-
       {/* Breadth: the full college list */}
       <ResultsSection
         eyebrow="Admissions"
         title="Colleges and universities"
         description="A sample of the many schools students have been admitted to. Select any school to visit its site."
-        tint
       >
         <CollegeGrid items={colleges} />
-      </ResultsSection>
-
-      {/* Scholarships */}
-      <ResultsSection eyebrow="Scholarships" title="Scholarships and financial aid">
-        {/* DRAFT figures — see data/results.ts; needs client sign-off on the
-            "$2 million+" aggregate before go-live. */}
-        <p className="mt-4 max-w-3xl text-lg leading-relaxed text-ink-soft">
-          {scholarshipStatement}
-        </p>
       </ResultsSection>
 
       {/* Disclaimer */}

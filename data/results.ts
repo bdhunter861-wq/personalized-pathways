@@ -11,14 +11,14 @@
 
 // Specialized / performing-arts / athletics placements (distinctive proof).
 export const specializedPlacements = [
-  { school: "University of Miami", field: "Music" },
-  { school: "Drexel University", field: "Music" },
-  { school: "University of Denver", field: "Music production" },
-  { school: "University of Colorado Denver", field: "Music production" },
-  { school: "University of Arizona", field: "Dance" },
-  { school: "Pace University", field: "Dance" },
-  { school: "Dean College", field: "Dance" },
-  { school: "University of Dallas", field: "Soccer" },
+  { school: "University of Miami", field: "Music", category: "arts" as const },
+  { school: "Drexel University", field: "Music", category: "arts" as const },
+  { school: "University of Denver", field: "Music production", category: "arts" as const },
+  { school: "University of Colorado Denver", field: "Music production", category: "arts" as const },
+  { school: "University of Arizona", field: "Dance", category: "arts" as const },
+  { school: "Pace University", field: "Dance", category: "arts" as const },
+  { school: "Dean College", field: "Dance", category: "arts" as const },
+  { school: "University of Dallas", field: "Soccer", category: "athletics" as const },
 ];
 
 // Medical school admissions.
@@ -66,6 +66,71 @@ export const competitiveMajorSchools = [
   "University of Illinois Urbana-Champaign",
   "California Polytechnic State University, San Luis Obispo",
 ];
+
+// Combined, categorized view for the "Highly competitive programs and majors"
+// section: BS/MD & medical school, engineering/competitive majors, athletics,
+// and performing arts — in that order, each visually its own group.
+export type CompetitiveItem = { name: string; domain?: string; tag?: string };
+export type CompetitiveCategory = {
+  key: string;
+  label: string;
+  description: string;
+  accent: "blue" | "green";
+  items: CompetitiveItem[];
+};
+
+function buildCategories(domains: Record<string, string>): CompetitiveCategory[] {
+  return [
+    {
+      key: "bsmd-medical",
+      label: "BS/MD & medical school",
+      description: "Combined-degree BS/MD pathways and direct medical school admissions.",
+      accent: "blue",
+      items: [
+        ...bsMdPrograms.map((name) => ({
+          name,
+          domain: domains[name],
+          tag: "BS/MD program",
+        })),
+        ...medSchools.map((name) => ({
+          name,
+          domain: domains[name],
+          tag: "Medical school",
+        })),
+      ],
+    },
+    {
+      key: "engineering",
+      label: "Engineering & competitive majors",
+      description:
+        "Selective engineering, business, and computer science programs, often harder to enter than the university overall.",
+      accent: "green",
+      items: competitiveMajorSchools.map((name) => ({
+        name,
+        domain: domains[name],
+        tag: "Selective program",
+      })),
+    },
+    {
+      key: "athletics",
+      label: "Athletics",
+      description: "Recruited and competitive collegiate athletics admissions.",
+      accent: "blue",
+      items: specializedPlacements
+        .filter((p) => p.category === "athletics")
+        .map((p) => ({ name: p.school, domain: domains[p.school], tag: p.field })),
+    },
+    {
+      key: "performing-arts",
+      label: "Performing arts",
+      description: "Competitive music and dance program admissions.",
+      accent: "green",
+      items: specializedPlacements
+        .filter((p) => p.category === "arts")
+        .map((p) => ({ name: p.school, domain: domains[p.school], tag: p.field })),
+    },
+  ];
+}
 
 // General college and university acceptances (Round 2 + Round 3, combined).
 export const colleges = [
@@ -202,11 +267,31 @@ export const schoolDomains: Record<string, string> = {
   "University of Arizona": "arizona.edu",
 };
 
-// DRAFT — needs client sign-off on the "$2 million+" aggregate before go-live.
-// No scholarship-program names, per the no-DIY-discovery policy; dollar figures
+// Built after schoolDomains so each item can carry its logo domain.
+export const competitiveCategories: CompetitiveCategory[] = buildCategories(schoolDomains);
+
+// DRAFT — needs client sign-off before go-live. Figures are illustrative,
+// built from confirmed anchor points (4 awards up to ~$280,000 each; one
+// $240,000 music scholarship to University of Miami; several additional
+// individual offers around $200,000, some declined). No scholarship-program
+// names are used anywhere, per the no-DIY-discovery policy — dollar figures
 // and school names only.
+export const scholarshipTotal = "$2M+";
+
+export type ScholarshipBand = { range: string; count: string; note?: string };
+export const scholarshipBands: ScholarshipBand[] = [
+  { range: "$1,000 – $1,500", count: "10+" },
+  { range: "$1,500 – $6,000", count: "6+" },
+  { range: "$10,000 – $50,000", count: "5+" },
+  {
+    range: "$200,000+",
+    count: "5",
+    note: "Including a $240,000 award to a top music program",
+  },
+];
+
 export const scholarshipStatement =
-  "Personalized Pathways students have earned scholarships and merit-based financial aid worth well over $2 million, including individual awards up to $280,000, a $240,000 award to a top music program, and scholarships ranging from $1,000 to $10,000 and up at schools nationwide.";
+  "Personalized Pathways students have earned scholarships and merit-based financial aid worth well over $2 million, including individual awards up to $280,000, a $240,000 award to a top music program, and scholarships ranging from $1,000 to $50,000 and up at schools nationwide.";
 
 // Testimonials from the client's testimonials document. The detailed student
 // and her parent are kept anonymous per the client's request (name omitted);
