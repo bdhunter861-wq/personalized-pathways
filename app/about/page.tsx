@@ -271,14 +271,24 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      {/* Our work together */}
-      <section className="py-16">
-        <Container>
+      {/* Our work together — bold dark band for contrast */}
+      <section className="bg-brand-deep relative overflow-hidden py-16">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-brand-green/20 blur-3xl"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-16 bottom-[-4rem] h-64 w-64 rounded-full bg-brand-blue/20 blur-3xl"
+        />
+        <Container className="relative">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.16em] text-clay-dark">
+            <p className="mb-3 flex items-center justify-center gap-2.5 text-sm font-semibold uppercase tracking-[0.16em] text-white/75">
+              <span aria-hidden="true" className="h-[3px] w-7 rounded-full bg-white/60" />
               Our work together
+              <span aria-hidden="true" className="h-[3px] w-7 rounded-full bg-white/60" />
             </p>
-            <p className="font-serif text-2xl leading-relaxed text-ink sm:text-[1.75rem]">
+            <p className="font-serif text-2xl leading-relaxed text-white sm:text-[1.75rem]">
               Together, we help students and families bring clarity to a process
               that can feel scattered, stressful, and high-pressure. Our goal is
               to help students make intentional choices, communicate with

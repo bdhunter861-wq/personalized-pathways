@@ -44,20 +44,42 @@ export default function PageHero({
             strokeLinecap="round"
             opacity="0.55"
           />
+          {/* Milestones along the path: discover, plan, arrive — not blank
+              dots, so the graphic reads as a journey rather than decoration. */}
           {[
-            [20, 210],
-            [200, 120],
-            [304, 34],
-          ].map(([cx, cy], i) => (
-            <circle
-              key={i}
-              cx={cx}
-              cy={cy}
-              r="7"
-              fill="var(--color-card)"
-              stroke={i === 1 ? "var(--color-brand-green)" : "var(--color-brand-blue)"}
-              strokeWidth="3"
-            />
+            { x: 20, y: 210, color: "var(--color-brand-blue)", icon: "pin" as const },
+            { x: 200, y: 120, color: "var(--color-brand-green)", icon: "book" as const },
+            { x: 304, y: 34, color: "var(--color-brand-blue)", icon: "cap" as const },
+          ].map((m, i) => (
+            <g key={i} transform={`translate(${m.x} ${m.y})`}>
+              <circle r="11" fill="var(--color-card)" stroke={m.color} strokeWidth="2.5" />
+              {m.icon === "pin" && (
+                <path
+                  d="M0,-5.5 C2.5,-5.5 4.5,-3.5 4.5,-1 C4.5,2 0,6 0,6 C0,6 -4.5,2 -4.5,-1 C-4.5,-3.5 -2.5,-5.5 0,-5.5 Z M0,-2.7 a1.4,1.4 0 1 0 0.01,0 Z"
+                  fill={m.color}
+                />
+              )}
+              {m.icon === "book" && (
+                <path
+                  d="M-5,-2.6 C-5,-3.2 -2.5,-3.6 0,-2.8 C2.5,-3.6 5,-3.2 5,-2.6 L5,3 C5,3.6 2.5,3.2 0,4 C-2.5,3.2 -5,3.6 -5,3 Z M0,-2.8 L0,4"
+                  fill="none"
+                  stroke={m.color}
+                  strokeWidth="1.4"
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
+                />
+              )}
+              {m.icon === "cap" && (
+                <path
+                  d="M0,-5 L8,-1 L0,3 L-8,-1 Z M-4.5,0.8 L-4.5,4.2 C-4.5,5.4 4.5,5.4 4.5,4.2 L4.5,0.8"
+                  fill="none"
+                  stroke={m.color}
+                  strokeWidth="1.4"
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
+                />
+              )}
+            </g>
           ))}
         </svg>
       )}

@@ -78,7 +78,7 @@ export default function TestimonialCard({ t }: { t: Testimonial }) {
           </div>
           {details}
           <blockquote className="mt-2.5 flex-1 text-sm leading-relaxed text-ink-soft">
-            {preview}
+            &ldquo;{preview}&rdquo;
           </blockquote>
           {long && (
             <button

@@ -13,6 +13,7 @@ import {
   schoolDomains,
   testimonials,
   type CompetitiveItem,
+  type CompetitiveCategory,
 } from "@/data/results";
 
 export const metadata: Metadata = {
@@ -27,11 +28,11 @@ const TONES = [
   "bg-cream-deep text-ink",
 ];
 
-// Prominent card for the feature sections: a large logo, the school name, and
-// a program tag. Links to the school site.
+// Compact row card: logo, school name, and program tag. Links to the school
+// site. Kept short so a full section doesn't run long on the page.
 function FeatureGrid({ items }: { items: CompetitiveItem[] }) {
   return (
-    <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
       {items.map((it, i) => {
         const inner = (
           <>
@@ -39,14 +40,13 @@ function FeatureGrid({ items }: { items: CompetitiveItem[] }) {
               name={it.name}
               domain={it.domain}
               tone={TONES[i % TONES.length]}
-              size="lg"
             />
-            <div>
-              <p className="font-serif text-lg font-semibold leading-snug text-ink">
+            <div className="min-w-0">
+              <p className="font-serif text-sm font-semibold leading-snug text-ink">
                 {it.name}
               </p>
               {it.tag && (
-                <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-clay-dark">
+                <p className="mt-0.5 text-xs font-medium leading-snug text-clay-dark">
                   {it.tag}
                 </p>
               )}
@@ -54,7 +54,7 @@ function FeatureGrid({ items }: { items: CompetitiveItem[] }) {
           </>
         );
         const base =
-          "flex h-full flex-col items-center gap-4 rounded-2xl border border-line bg-card p-6 text-center shadow-sm";
+          "flex h-full items-center gap-3 rounded-xl border border-line bg-card px-3.5 py-3 text-left shadow-sm";
         return (
           <li key={`${it.name}-${it.tag ?? ""}`}>
             {it.domain ? (
@@ -64,17 +64,13 @@ function FeatureGrid({ items }: { items: CompetitiveItem[] }) {
                 rel="noopener noreferrer"
                 className={`lift group ${base} transition-colors hover:border-clay hover:shadow-md`}
               >
-                <div className="brand-rule h-1 w-10 rounded-full opacity-60 transition group-hover:w-16 group-hover:opacity-100" />
                 {inner}
-                <span className="mt-auto text-xs font-medium text-ink-muted">
-                  Visit site ↗
+                <span aria-hidden="true" className="ml-auto shrink-0 text-ink-muted">
+                  ↗
                 </span>
               </a>
             ) : (
-              <div className={base}>
-                <div className="brand-rule h-1 w-10 rounded-full opacity-60" />
-                {inner}
-              </div>
+              <div className={base}>{inner}</div>
             )}
           </li>
         );
@@ -83,8 +79,38 @@ function FeatureGrid({ items }: { items: CompetitiveItem[] }) {
   );
 }
 
+// Quick "at a glance" chart: one bar per category, sized by how many schools
+// are in it. Lets a visitor scan the whole section in a second.
+function CategoryCountChart({ categories }: { categories: CompetitiveCategory[] }) {
+  const max = Math.max(...categories.map((c) => c.items.length));
+  return (
+    <div className="mt-8 grid gap-4 sm:grid-cols-2">
+      {categories.map((cat) => {
+        const pct = Math.max(18, (cat.items.length / max) * 100);
+        const bar = cat.accent === "blue" ? "bg-brand-blue" : "bg-brand-green";
+        return (
+          <div key={cat.key} className="rounded-xl border border-line bg-card p-4 shadow-sm">
+            <div className="flex items-baseline justify-between gap-3 text-sm">
+              <span className="font-semibold text-ink">{cat.label}</span>
+              <span className="font-serif text-lg font-semibold text-ink">
+                {cat.items.length}
+              </span>
+            </div>
+            <div className="mt-2.5 h-2.5 w-full overflow-hidden rounded-full bg-cream-deep">
+              <div
+                className={`h-2.5 rounded-full ${bar}`}
+                style={{ width: `${pct}%` }}
+              />
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 // A category group within the combined competitive-programs section: a
-// colored label + icon, then its feature grid.
+// colored label, then its feature grid.
 function CategoryGroup({
   label,
   description,
@@ -103,17 +129,17 @@ function CategoryGroup({
       ? "bg-clay-soft text-clay-dark"
       : "bg-sage-soft text-sage";
   return (
-    <div className="mt-12 first:mt-0">
+    <div className="mt-8 first:mt-0">
       <div className="flex items-center gap-3">
         <span aria-hidden="true" className={`h-3 w-3 rounded-full ${dot}`} />
-        <h3 className={`inline-flex rounded-full px-3 py-1 font-serif text-lg font-semibold ${chip}`}>
+        <h3 className={`inline-flex rounded-full px-3 py-1 font-serif text-base font-semibold ${chip}`}>
           {label}
         </h3>
       </div>
-      <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink-soft">
+      <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-ink-soft">
         {description}
       </p>
-      <div className="mt-5">
+      <div className="mt-4">
         <FeatureGrid items={items} />
       </div>
     </div>
@@ -123,7 +149,7 @@ function CategoryGroup({
 // Compact row cards for the long Colleges & universities list (logo + name).
 function CollegeGrid({ items }: { items: string[] }) {
   return (
-    <ul className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+    <ul className="mt-8 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
       {items.map((name, i) => {
         const domain = schoolDomains[name];
         const inner = (
@@ -139,7 +165,7 @@ function CollegeGrid({ items }: { items: string[] }) {
                 href={`https://${domain}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="lift flex h-full items-center gap-3 rounded-xl border border-line bg-card px-4 py-3 shadow-sm transition-colors hover:border-clay hover:bg-clay-soft/20"
+                className="lift flex h-full items-center gap-3 rounded-xl border border-line bg-card px-3.5 py-2.5 shadow-sm transition-colors hover:border-clay hover:bg-clay-soft/20"
               >
                 {inner}
                 <span aria-hidden="true" className="ml-auto text-ink-muted">
@@ -147,7 +173,7 @@ function CollegeGrid({ items }: { items: string[] }) {
                 </span>
               </a>
             ) : (
-              <div className="flex h-full items-center gap-3 rounded-xl border border-line bg-card px-4 py-3 shadow-sm">
+              <div className="flex h-full items-center gap-3 rounded-xl border border-line bg-card px-3.5 py-2.5 shadow-sm">
                 {inner}
               </div>
             )}
@@ -174,7 +200,7 @@ function ResultsSection({
 }) {
   return (
     <section
-      className={`relative overflow-hidden py-16 ${tint ? "bg-cream-deep/50" : ""}`}
+      className={`relative overflow-hidden py-12 ${tint ? "bg-cream-deep/50" : ""}`}
     >
       <Backdrop dots={tint} />
       <Container className="relative">
@@ -268,6 +294,7 @@ export default function ResultsPage() {
         title="Highly competitive programs and majors"
         description="From combined-degree medical pathways to selective majors, athletics, and the performing arts, each of these carries its own application, and its own bar to clear."
       >
+        <CategoryCountChart categories={competitiveCategories} />
         {competitiveCategories.map((cat) => (
           <CategoryGroup
             key={cat.key}
@@ -285,7 +312,9 @@ export default function ResultsPage() {
         description="Selective honors colleges and programs, which carry their own applications and requirements."
         tint
       >
-        <FeatureGrid items={honorsItems} />
+        <div className="mt-4">
+          <FeatureGrid items={honorsItems} />
+        </div>
       </ResultsSection>
 
       {/* Breadth: the full college list */}
@@ -298,7 +327,7 @@ export default function ResultsPage() {
       </ResultsSection>
 
       {/* Disclaimer */}
-      <section className="py-10">
+      <section className="py-8">
         <Container>
           <p className="max-w-3xl text-sm leading-relaxed text-ink-muted">
             Admissions, scholarship, and financial aid outcomes vary by student

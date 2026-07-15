@@ -99,15 +99,24 @@ export default function ServicesPage() {
         </Container>
       </section>
 
-      {/* The approach */}
-      <section className="bg-cream-deep/60 py-20">
-        <Container>
+      {/* The approach — bold dark band for contrast */}
+      <section className="bg-brand-deep relative overflow-hidden py-20">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-24 -top-24 h-80 w-80 rounded-full bg-brand-blue/20 blur-3xl"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-20 bottom-[-5rem] h-72 w-72 rounded-full bg-brand-green/20 blur-3xl"
+        />
+        <Container className="relative">
           <div className="mx-auto max-w-3xl">
             <SectionHeading
+              light
               eyebrow="The approach"
               title="Specific and authentic, not packaged"
             />
-            <div className="mt-6 space-y-5 text-lg leading-relaxed text-ink-soft">
+            <div className="mt-6 space-y-5 text-lg leading-relaxed text-cream-deep/85">
               <p>
                 A lot of application advice pushes students to become a version of
                 what they think a school wants. That rarely reads as genuine, and

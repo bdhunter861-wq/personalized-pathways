@@ -1,69 +1,90 @@
 // Results / social proof for the Testimonials & Results page.
 // Client-provided acceptances (real). Edit here.
 //
+// Within every section below, schools are ordered most- to least-selective —
+// a judgment call for marketing presentation, not a precise ranking.
+//
 // TODO — confirm before go-live:
-//  - Institution names for a few abbreviations (SUNY Albany, CU SOM).
-//  - Whether "University of Miami" and "Drexel" music placements are music
-//    PRODUCTION specifically (labeled "Music" here to avoid overclaiming;
-//    University of Denver and CU Denver are labeled "Music production" per the
-//    client's explicit note).
-//  - Any additional honors colleges to list beyond University of Maryland.
+//  - Institution name for one abbreviation (SUNY Albany).
+//  - Exact program names for Drexel and CU Denver's music production programs
+//    (left generic below — do not publish a specific title until confirmed).
+//  - Exact BS/MD program names for Penn State, GW, Pitt, CU, Hofstra, and
+//    Indiana (only Case Western, RPI, and Rochester have confirmed names).
+//  - Any additional honors colleges to list beyond what's below.
 
-// Specialized / performing-arts / athletics placements (distinctive proof).
+// Specialized / performing-arts / athletics placements (distinctive proof),
+// most- to least-selective within each group.
 export const specializedPlacements = [
-  { school: "University of Miami", field: "Music", category: "arts" as const },
-  { school: "Drexel University", field: "Music", category: "arts" as const },
-  { school: "University of Denver", field: "Music production", category: "arts" as const },
-  { school: "University of Colorado Denver", field: "Music production", category: "arts" as const },
+  {
+    school: "University of Miami",
+    field: "Music Production — Frost School of Music",
+    category: "arts" as const,
+  },
+  {
+    school: "University of Denver",
+    field: "Music Production — Lamont School of Music",
+    category: "arts" as const,
+  },
+  {
+    // TODO — confirm Drexel's exact music production program name.
+    school: "Drexel University",
+    field: "Music Production",
+    category: "arts" as const,
+  },
+  {
+    // TODO — confirm CU Denver's exact music production program name.
+    school: "University of Colorado Denver",
+    field: "Music Production",
+    category: "arts" as const,
+  },
   { school: "University of Arizona", field: "Dance", category: "arts" as const },
   { school: "Pace University", field: "Dance", category: "arts" as const },
   { school: "Dean College", field: "Dance", category: "arts" as const },
   { school: "University of Dallas", field: "Soccer", category: "athletics" as const },
 ];
 
-// Medical school admissions.
-export const medSchools = [
-  "SUNY Albany",
-  "University of Colorado School of Medicine",
-  "Johns Hopkins",
-];
+// Medical school admissions, most- to least-selective.
+export const medSchools = ["Johns Hopkins", "University of Colorado School of Medicine", "SUNY Albany"];
 
-// BS/MD combined-degree program admissions.
+// BS/MD combined-degree program admissions, most- to least-selective.
+// Program name shown as a tag when confirmed; otherwise a generic label.
 export const bsMdPrograms = [
-  "Case Western Reserve University",
-  "University of Pittsburgh",
-  "George Washington University",
-  "University of Colorado",
-  "Penn State",
-  "University of Rochester",
-  "Hofstra University",
-  "Indiana University",
-  "Rensselaer Polytechnic Institute (RPI)",
+  { school: "Case Western Reserve University", program: "Pre-Professional Scholars Program (PPSP)" },
+  { school: "Rensselaer Polytechnic Institute (RPI)", program: "Physician-Scientist Program" },
+  { school: "University of Rochester", program: "REMS Program" },
+  { school: "Penn State", program: "BS/MD Program" },
+  { school: "George Washington University", program: "BS/MD Program" },
+  { school: "University of Pittsburgh", program: "BS/MD Program" },
+  { school: "University of Colorado", program: "BS/MD Program" },
+  { school: "Hofstra University", program: "BS/MD Program" },
+  { school: "Indiana University", program: "BS/MD Program" },
 ];
 
-// Honors college admissions. Each has the school (for the logo) and the honors
-// program name (shown as a tag on the card).
-// TODO — CONFIRM this list. These are well-known honors colleges/programs at
-// schools already on the acceptances list, added per the client's note that
-// students have been admitted to honors colleges across many of them. Trim or
-// expand to match actual honors-college admits before go-live.
+// Honors college admissions, most- to least-selective. Each has the school
+// (for the logo) and the honors program name (shown as a tag on the card).
 export const honorsColleges = [
-  { school: "University of Maryland", program: "Honors College" },
-  { school: "Purdue University", program: "Honors College" },
   { school: "Penn State", program: "Schreyer Honors College" },
-  { school: "University of Oklahoma", program: "Honors College" },
+  { school: "University of Maryland", program: "Honors College" },
   { school: "Indiana University", program: "Hutton Honors College" },
+  { school: "Purdue University", program: "Honors College" },
   { school: "University of Oregon", program: "Clark Honors College" },
   { school: "Baylor University", program: "Honors College" },
-  { school: "Colorado State University", program: "Honors Program" },
-  { school: "University of Denver", program: "Honors Program" },
   { school: "Miami University (Ohio)", program: "Honors College" },
+  { school: "University of Oklahoma", program: "Honors College" },
+  { school: "University of Denver", program: "Honors Program" },
+  { school: "Colorado State University", program: "Honors Program" },
 ];
 
-// Highly competitive programs/majors (harder than general admission).
+// Highly competitive programs/majors (harder than general admission),
+// most- to least-selective.
 export const competitiveMajorSchools = [
-  "Purdue University",
+  "Duke University",
+  "Brown University",
+  "University of Southern California",
   "University of Illinois Urbana-Champaign",
+  "Purdue University",
+  "University of Maryland",
+  "University of Colorado Boulder",
   "California Polytechnic State University, San Luis Obispo",
 ];
 
@@ -79,6 +100,23 @@ export type CompetitiveCategory = {
   items: CompetitiveItem[];
 };
 
+// Manual interleave order for the combined BS/MD & medical school category —
+// most- to least-selective across both source lists together.
+const bsMdMedicalOrder: { type: "med" | "bsmd"; school: string }[] = [
+  { type: "med", school: "Johns Hopkins" },
+  { type: "bsmd", school: "Case Western Reserve University" },
+  { type: "bsmd", school: "Rensselaer Polytechnic Institute (RPI)" },
+  { type: "bsmd", school: "University of Rochester" },
+  { type: "med", school: "University of Colorado School of Medicine" },
+  { type: "bsmd", school: "Penn State" },
+  { type: "bsmd", school: "George Washington University" },
+  { type: "bsmd", school: "University of Pittsburgh" },
+  { type: "bsmd", school: "University of Colorado" },
+  { type: "bsmd", school: "Hofstra University" },
+  { type: "bsmd", school: "Indiana University" },
+  { type: "med", school: "SUNY Albany" },
+];
+
 function buildCategories(domains: Record<string, string>): CompetitiveCategory[] {
   return [
     {
@@ -86,18 +124,14 @@ function buildCategories(domains: Record<string, string>): CompetitiveCategory[]
       label: "BS/MD & medical school",
       description: "Combined-degree BS/MD pathways and direct medical school admissions.",
       accent: "blue",
-      items: [
-        ...bsMdPrograms.map((name) => ({
-          name,
-          domain: domains[name],
-          tag: "BS/MD program",
-        })),
-        ...medSchools.map((name) => ({
-          name,
-          domain: domains[name],
-          tag: "Medical school",
-        })),
-      ],
+      items: bsMdMedicalOrder.map(({ type, school }) => ({
+        name: school,
+        domain: domains[school],
+        tag:
+          type === "med"
+            ? "Medical school"
+            : bsMdPrograms.find((p) => p.school === school)?.program ?? "BS/MD Program",
+      })),
     },
     {
       key: "engineering",
@@ -132,62 +166,63 @@ function buildCategories(domains: Record<string, string>): CompetitiveCategory[]
   ];
 }
 
-// General college and university acceptances (Round 2 + Round 3, combined).
+// General college and university acceptances, most- to least-selective
+// (a reasonable presentation order, not a precise ranking).
 export const colleges = [
-  "University of Colorado Boulder",
   "Yale University",
-  "Case Western Reserve University",
-  "University of Rochester",
+  "Duke University",
+  "Brown University",
+  "Northwestern University",
   "Vanderbilt University",
   "University of Virginia",
   "University of North Carolina at Chapel Hill",
-  "Duke University",
-  "Brown University",
-  "University of Southern California",
-  "University of Wisconsin",
-  "University of Notre Dame",
-  "University of Richmond",
-  "Miami University (Ohio)",
   "Emory University",
-  "Grinnell College",
+  "Washington University in St. Louis",
+  "University of Michigan",
+  "University of Southern California",
+  "Wake Forest University",
+  "Boston College",
+  "University of Notre Dame",
+  "Carleton College",
+  "William & Mary",
+  "Case Western Reserve University",
+  "University of Rochester",
+  "Boston University",
+  "The Ohio State University",
+  "Purdue University",
+  "University of Illinois Urbana-Champaign",
+  "University of Wisconsin",
+  "University of Colorado Boulder",
+  "Santa Clara University",
+  "Texas Christian University",
+  "Gonzaga University",
+  "Creighton University",
+  "Saint Louis University",
+  "University of Oklahoma",
+  "Baylor University",
   "Colorado State University",
-  "University of British Columbia",
+  "University of Denver",
+  "Miami University (Ohio)",
+  "Grinnell College",
+  "University of Richmond",
+  "Whitman College",
+  "Lewis & Clark College",
+  "Chapman University",
+  "University of San Diego",
+  "University of Dallas",
+  "University of Oregon",
+  "University of Nebraska",
+  "Oregon State University",
+  "Flagler College",
+  "Dean College",
+  "Pace University",
   "San Diego State University",
   "California State University, Long Beach",
   "California State University, Northridge",
-  "Washington University in St. Louis",
   "Colorado School of Mines",
   "Worcester Polytechnic Institute",
-  "Purdue University",
-  "University of Illinois Urbana-Champaign",
   "California Polytechnic State University, San Luis Obispo",
-  "Wake Forest University",
-  "Baylor University",
-  "Boston College",
-  "Creighton University",
-  "University of Oklahoma",
-  "Santa Clara University",
-  "University of Michigan",
-  "Boston University",
-  "Northwestern University",
-  "The Ohio State University",
-  "Carleton College",
-  "William & Mary",
-  "University of Denver",
-  "University of Dallas",
-  "Lewis & Clark College",
-  "Whitman College",
-  "University of Oregon",
-  "Flagler College",
-  "University of Nebraska",
-  "Oregon State University",
-  "Chapman University",
-  "Dean College",
-  "Pace University",
-  "University of San Diego",
-  "Texas Christian University",
-  "Gonzaga University",
-  "Saint Louis University",
+  "University of British Columbia",
 ];
 
 // Domain per school, used to fetch a logo from a logo service. Schools without
@@ -280,12 +315,12 @@ export const scholarshipTotal = "$2M+";
 
 export type ScholarshipBand = { range: string; count: string; note?: string };
 export const scholarshipBands: ScholarshipBand[] = [
-  { range: "$1,000 – $1,500", count: "10+" },
-  { range: "$1,500 – $6,000", count: "6+" },
-  { range: "$10,000 – $50,000", count: "5+" },
+  { range: "$1,000 – $1,500", count: "30+" },
+  { range: "$1,500 – $6,000", count: "25+" },
+  { range: "$10,000 – $50,000", count: "15+" },
   {
     range: "$200,000+",
-    count: "5",
+    count: "10+",
     note: "Including a $240,000 award to a top music program",
   },
 ];

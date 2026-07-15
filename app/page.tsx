@@ -317,25 +317,31 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Why our guidance is different */}
-            <div className="lift rounded-2xl border border-clay/30 bg-card p-8 shadow-sm ring-1 ring-clay/10">
-              <div className="brand-rule mb-5 h-[5px] w-16 rounded-full" />
-              <h3 className="font-serif text-2xl font-semibold text-ink">
-                Why our guidance is different
-              </h3>
-              <div className="mt-4 space-y-4 leading-relaxed text-ink-soft">
-                <p>
-                  Personalized Pathways is led by experienced educators who
-                  understand student development, writing, school systems, family
-                  dynamics, and the strategy behind strong applications.
-                </p>
-                <p>
-                  We bring together developmental insight, practical school
-                  experience, and close attention to each student's individual
-                  story. That combination allows us to help students make stronger
-                  choices, turning their experiences into a clear and compelling
-                  path forward.
-                </p>
+            {/* Why our guidance is different — bold dark band for contrast */}
+            <div className="bg-brand-deep lift relative overflow-hidden rounded-2xl p-8 shadow-lg">
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-brand-green/20 blur-2xl"
+              />
+              <div className="relative">
+                <div className="mb-5 h-[5px] w-16 rounded-full bg-white/70" />
+                <h3 className="font-serif text-2xl font-semibold text-white">
+                  Why our guidance is different
+                </h3>
+                <div className="mt-4 space-y-4 leading-relaxed text-cream-deep/85">
+                  <p>
+                    Personalized Pathways is led by experienced educators who
+                    understand student development, writing, school systems,
+                    family dynamics, and the strategy behind strong applications.
+                  </p>
+                  <p>
+                    We bring together developmental insight, practical school
+                    experience, and close attention to each student's individual
+                    story. That combination allows us to help students make
+                    stronger choices, turning their experiences into a clear and
+                    compelling path forward.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
