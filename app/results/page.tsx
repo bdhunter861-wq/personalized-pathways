@@ -12,8 +12,8 @@ import {
   competitiveCategories,
   schoolDomains,
   testimonials,
+  moreTestimonials,
   type CompetitiveItem,
-  type CompetitiveCategory,
 } from "@/data/results";
 
 export const metadata: Metadata = {
@@ -76,36 +76,6 @@ function FeatureGrid({ items }: { items: CompetitiveItem[] }) {
         );
       })}
     </ul>
-  );
-}
-
-// Quick "at a glance" chart: one bar per category, sized by how many schools
-// are in it. Lets a visitor scan the whole section in a second.
-function CategoryCountChart({ categories }: { categories: CompetitiveCategory[] }) {
-  const max = Math.max(...categories.map((c) => c.items.length));
-  return (
-    <div className="mt-8 grid gap-4 sm:grid-cols-2">
-      {categories.map((cat) => {
-        const pct = Math.max(18, (cat.items.length / max) * 100);
-        const bar = cat.accent === "blue" ? "bg-brand-blue" : "bg-brand-green";
-        return (
-          <div key={cat.key} className="rounded-xl border border-line bg-card p-4 shadow-sm">
-            <div className="flex items-baseline justify-between gap-3 text-sm">
-              <span className="font-semibold text-ink">{cat.label}</span>
-              <span className="font-serif text-lg font-semibold text-ink">
-                {cat.items.length}
-              </span>
-            </div>
-            <div className="mt-2.5 h-2.5 w-full overflow-hidden rounded-full bg-cream-deep">
-              <div
-                className={`h-2.5 rounded-full ${bar}`}
-                style={{ width: `${pct}%` }}
-              />
-            </div>
-          </div>
-        );
-      })}
-    </div>
   );
 }
 
@@ -299,6 +269,29 @@ export default function ResultsPage() {
             </p>
           </div>
         )}
+
+        {moreTestimonials.length > 0 && (
+          <div className="mx-auto mt-14 max-w-3xl">
+            <p className="text-center text-sm font-semibold uppercase tracking-[0.16em] text-clay-dark">
+              More from our families
+            </p>
+            <ul className="mt-6 space-y-4">
+              {moreTestimonials.map((t, i) => (
+                <li
+                  key={i}
+                  className="rounded-xl border border-line bg-card p-5 shadow-sm"
+                >
+                  <p className="text-sm italic leading-relaxed text-ink-soft">
+                    &ldquo;{t.quote}&rdquo;
+                  </p>
+                  <p className="mt-2 text-sm font-semibold text-clay-dark">
+                    — {t.attribution}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </ResultsSection>
 
       {/* Combined, categorized competitive-programs section */}
@@ -307,7 +300,6 @@ export default function ResultsPage() {
         title="Highly competitive programs and majors"
         description="From combined-degree medical pathways to selective majors, athletics, and the performing arts, each of these carries its own application, and its own bar to clear."
       >
-        <CategoryCountChart categories={competitiveCategories} />
         {competitiveCategories.map((cat) => (
           <CategoryGroup
             key={cat.key}

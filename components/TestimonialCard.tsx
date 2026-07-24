@@ -8,13 +8,11 @@ const WORD_LIMIT = 26;
 
 export default function TestimonialCard({ t }: { t: Testimonial }) {
   const [open, setOpen] = useState(false);
-  const isParent = t.role === "parent";
   const words = t.quote.split(/\s+/);
   const long = words.length > WORD_LIMIT;
   const preview = long ? words.slice(0, WORD_LIMIT).join(" ") + "…" : t.quote;
 
-  const roleLabel = isParent ? "Parent" : "Student";
-  const roleColor = isParent ? "text-sage" : "text-clay-dark";
+  const attributionColor = t.isParent ? "text-sage" : "text-clay-dark";
 
   // Close on Escape and lock background scroll while the modal is open.
   useEffect(() => {
@@ -28,11 +26,17 @@ export default function TestimonialCard({ t }: { t: Testimonial }) {
     };
   }, [open]);
 
-  const details = (t.college || t.areaOfStudy) && (
+  const details = (t.college || t.scholarship || t.areaOfStudy) && (
     <div className="mt-2 space-y-0.5 text-sm text-ink-soft">
       {t.college && (
         <p>
           <span className="font-semibold text-ink">College:</span> {t.college}
+        </p>
+      )}
+      {t.scholarship && (
+        <p>
+          <span className="font-semibold text-ink">Merit/Scholarship:</span>{" "}
+          {t.scholarship}
         </p>
       )}
       {t.areaOfStudy && (
@@ -62,29 +66,29 @@ export default function TestimonialCard({ t }: { t: Testimonial }) {
             <div className="bg-dots-brand absolute inset-0 opacity-20" />
             <div className="relative flex flex-col items-center gap-2">
               <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/15 font-serif text-3xl text-white">
-                {t.name ? t.name.charAt(0) : "“"}
+                {t.studentName.charAt(0)}
               </span>
               <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white/90">
-                {roleLabel}
+                {t.studentName}
               </span>
             </div>
           </div>
         )}
 
         <div className="flex flex-1 flex-col p-5">
-          <div className="text-sm font-semibold">
-            <span className={roleColor}>{roleLabel}</span>
-            {t.name && <span className="font-normal text-ink-soft"> · {t.name}</span>}
-          </div>
+          <p className="font-serif text-lg font-semibold text-ink">{t.studentName}</p>
           {details}
           <blockquote className="mt-2.5 flex-1 text-sm leading-relaxed text-ink-soft">
             &ldquo;{preview}&rdquo;
           </blockquote>
+          <p className={`mt-2.5 text-sm font-semibold ${attributionColor}`}>
+            — {t.attribution}
+          </p>
           {long && (
             <button
               type="button"
               onClick={() => setOpen(true)}
-              className="mt-2.5 w-fit text-sm font-semibold text-clay-dark hover:underline"
+              className="mt-2 w-fit text-sm font-semibold text-clay-dark hover:underline"
             >
               Read more
             </button>
@@ -122,14 +126,14 @@ export default function TestimonialCard({ t }: { t: Testimonial }) {
                 </span>
               ) : (
                 <span className="bg-brand-deep flex h-14 w-14 shrink-0 items-center justify-center rounded-full font-serif text-2xl text-white">
-                  {t.name ? t.name.charAt(0) : "“"}
+                  {t.studentName.charAt(0)}
                 </span>
               )}
               <div>
-                <p className="font-serif text-xl font-semibold text-ink">
-                  {t.name ?? roleLabel}
+                <p className="font-serif text-xl font-semibold text-ink">{t.studentName}</p>
+                <p className={`text-sm font-semibold ${attributionColor}`}>
+                  — {t.attribution}
                 </p>
-                <p className={`text-sm font-semibold ${roleColor}`}>{roleLabel}</p>
               </div>
             </div>
 

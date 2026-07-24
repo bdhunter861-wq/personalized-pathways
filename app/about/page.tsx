@@ -44,7 +44,14 @@ const recognition = [
 // Meaghan Elliott's credentials, from her resume. Edit here.
 const meaghanEducation = [
   "B.S., International Business and French, Cum Laude — Bradley University",
-  "Alternative Teacher Licensure — Metropolitan State University of Denver",
+];
+
+const meaghanLicensure = [
+  "Colorado Professional Teacher License",
+  "Elementary Education (K–6)",
+  "Multilingual Education Level 2 (ELA-E)",
+  "Leading Effective Academic Practice (LEAP) Observer Certified, Denver Public Schools",
+  "Teacher Licensure — Metropolitan State University of Denver",
 ];
 
 const meaghanExperience = [
@@ -260,9 +267,16 @@ export default function AboutPage() {
                   accent="sage"
                 />
                 <CredentialList
+                  title="Licensure & Certifications"
+                  items={meaghanLicensure}
+                  accent="clay"
+                />
+              </div>
+              <div className="mt-6">
+                <CredentialList
                   title="Selected experience"
                   items={meaghanExperience}
-                  accent="clay"
+                  accent="sage"
                 />
               </div>
             </div>

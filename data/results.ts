@@ -64,14 +64,20 @@ export const bsMdPrograms = [
 // (for the logo) and the honors program name (shown as a tag on the card).
 export const honorsColleges = [
   { school: "Penn State", program: "Schreyer Honors College" },
+  { school: "Boston University", program: "Kilachand Honors College" },
   { school: "University of Maryland", program: "Honors College" },
   { school: "Indiana University", program: "Hutton Honors College" },
   { school: "Purdue University", program: "Honors College" },
+  { school: "University of Colorado Boulder", program: "Leeds School of Business Honors College" },
   { school: "University of Oregon", program: "Clark Honors College" },
   { school: "Baylor University", program: "Honors College" },
+  { school: "Texas Christian University", program: "John V. Roach Honors College" },
   { school: "Miami University (Ohio)", program: "Honors College" },
   { school: "University of Oklahoma", program: "Honors College" },
+  { school: "Saint Louis University", program: "University Honors Program" },
+  { school: "Gonzaga University", program: "Honors Program" },
   { school: "University of Denver", program: "Honors Program" },
+  { school: "The Ohio State University", program: "University Honors Program" },
   { school: "Colorado State University", program: "Honors Program" },
 ];
 
@@ -328,79 +334,115 @@ export const scholarshipBands: ScholarshipBand[] = [
 export const scholarshipStatement =
   "Personalized Pathways students have earned scholarships and merit-based financial aid worth well over $2 million, including individual awards up to $280,000, a $240,000 award to a top music program, and scholarships ranging from $1,000 to $50,000 and up at schools nationwide.";
 
-// Testimonials from the client's testimonials document. The detailed student
-// and her parent are kept anonymous per the client's request (name omitted);
-// her statement is split into separate testimonials by topic.
+// Testimonials from the client's testimonials document, in the client's
+// requested format: student name headline, College/Merit/Area of Study
+// fields, quote, and an attribution line (parent's name + relationship, or
+// the student's own name for self-written testimonials).
 export type Testimonial = {
-  quote: string;
-  role: "student" | "parent";
-  name?: string;
-  // Optional student photo + details (shown card-style when present).
-  image?: string;
+  studentName: string;
   college?: string;
-  collegeDomain?: string; // for the college logo badge on the photo
+  collegeDomain?: string; // for the college logo badge
+  scholarship?: string; // Merit/Scholarship
   areaOfStudy?: string;
+  quote: string;
+  attribution: string; // e.g. "Stacey (mother)" or "Blake"
+  isParent: boolean;
+  image?: string;
 };
 
 export const testimonials: Testimonial[] = [
   {
+    studentName: "Evelyn",
+    college: "University of Colorado Boulder",
+    collegeDomain: "colorado.edu",
+    areaOfStudy: "Education",
+    quote:
+      "Meaghan and Dr. Anthony made the college application process easy and approachable, especially for us as parents new to it. Our rising senior loved working with them both, and they helped her achieve her dream school!",
+    attribution: "Stacey (mother)",
+    isParent: true,
+    image: "/testimonials/evelyn.jpg",
+  },
+  {
+    studentName: "Dylan",
+    college: "University of Miami",
+    collegeDomain: "miami.edu",
+    scholarship: "President's Music Scholarship",
+    areaOfStudy: "Music Scoring and Production",
+    quote:
+      "Our family is so grateful to Meaghan and Dr. Anthony. Their expertise, encouragement, and personalized support played a huge role in my son earning acceptance to the Frost School of Music at the University of Miami. We wholeheartedly recommend them.",
+    attribution: "Amanda (mother)",
+    isParent: true,
+    image: "/testimonials/dylan.jpg",
+  },
+  {
+    studentName: "Blake",
+    college: "Vanderbilt University",
+    collegeDomain: "vanderbilt.edu",
+    scholarship: "Vanderbilt Chancellor's Scholar, Carson Scholar, Never Forgotten Scholarship",
+    areaOfStudy: "Economics / Business Minor (Finance)",
+    quote:
+      "Meaghan and Dr. Anthony's help in fine-tuning my essays, creating an authentic story throughout my application, and offering thoughtful feedback with quick turnaround was invaluable. They kept me on track through multiple college and scholarship deadlines while also helping me identify scholarship opportunities I may not have found on my own. Thanks to their support, I was accepted to every school I hoped for, and this fall I'll be attending my dream school. I couldn't be more grateful.",
+    attribution: "Blake",
+    isParent: false,
+  },
+  {
+    studentName: "Grant",
+    college: "Miami University (Ohio)",
+    collegeDomain: "miamioh.edu",
+    scholarship: "Redhawk Excellence Scholarship",
+    areaOfStudy: "Political Science",
+    quote:
+      "Meaghan and Dr. Anthony's guidance made the entire college process feel manageable. They kept me on track with deadlines for multiple schools and scholarship applications while also helping me discover schools that were a great fit, many of which I wouldn't have considered without their insight. Their support helped me find the right college path.",
+    attribution: "Grant",
+    isParent: false,
+  },
+  {
+    studentName: "Kiran",
+    quote:
+      "Dr. Anthony gave genuinely helpful essay and admission advice that went far beyond the basics and got at the core of my character. She was timely, easy to work with, and put in countless hours outside our scheduled meetings.",
+    attribution: "Kiran",
+    isParent: false,
+    image: "/testimonials/kiran.jpg",
+  },
+];
+
+// Testimonials without a photo or full program details — listed in a simpler
+// format below the slider rather than as full cards.
+export type SimpleTestimonial = { quote: string; attribution: string };
+export const moreTestimonials: SimpleTestimonial[] = [
+  {
     quote:
       "Dr. Anthony has been instrumental to my college application success. Even before researching colleges or writing essays, she helped me combine my activities, experiences, culture, and personality into one cohesive personal statement that made everything else far more manageable.",
-    role: "student",
+    attribution: "Student",
   },
   {
     quote:
       "In the research process, Dr. Anthony is extremely knowledgeable about many colleges and programs, including BS/MD, scholarships, leadership programs, and honors colleges. She was able to give insight on which of my activities should be emphasized more than others.",
-    role: "student",
+    attribution: "Student",
   },
   {
     quote:
       "I cannot speak highly enough of Dr. Anthony's essay work; 'editing' does not do it justice. I'm a utilitarian writer who struggles with word counts, and she helped me stay under the limits while adding vibrancy, all in my own voice.",
-    role: "student",
+    attribution: "Student",
   },
   {
     quote:
       "For special programs that involve interviews, Dr. Anthony helped me prepare in a realistic one-on-one interview, with advice afterward that left me confident and able to answer questions concisely yet thoroughly. With her help, I was accepted into all three of my top program choices.",
-    role: "student",
+    attribution: "Student",
   },
   {
     quote:
       "College applications are grueling. The only thing that helped me more than being motivated to succeed was Dr. Anthony's consulting.",
-    role: "student",
+    attribution: "Student",
   },
   {
     quote:
       "My student was extremely stressed about applications, and I didn't know how to help. Dr. Anthony guided her through all of it, from the personal statement to essays and interviews, never writing for her but always protecting her voice. I strongly recommend her.",
-    role: "parent",
-  },
-  {
-    quote:
-      "Meaghan and Dr. Anthony made the college application process easy and approachable, especially for us as parents new to it. Our rising senior loved working with them both, and they helped her achieve her dream school!",
-    role: "parent",
-    name: "Stacey",
-    image: "/testimonials/stacey.jpg",
-  },
-  {
-    quote:
-      "Dr. Anthony gave genuinely helpful essay and admission advice that went far beyond the basics and got at the core of my character. She was timely, easy to work with, and put in countless hours outside our scheduled meetings.",
-    role: "student",
-    name: "Kiran",
-    image: "/testimonials/kiran.jpg",
+    attribution: "Parent",
   },
   {
     quote:
       "Dr. Anthony's advice has been helpful across the board. I've now watched her support three applicants, my two children and my niece, tailoring her coaching to each one and helping them show their strengths. Her writing guidance is excellent.",
-    role: "parent",
-    name: "Beth",
-  },
-  {
-    quote:
-      "Our family is so grateful to Meaghan and Dr. Anthony. Their expertise, encouragement, and personalized support played a huge role in my son earning acceptance to the Frost School of Music at the University of Miami. We wholeheartedly recommend them.",
-    role: "parent",
-    name: "Amanda",
-    image: "/testimonials/dylan.jpg",
-    college: "University of Miami",
-    collegeDomain: "miami.edu",
-    areaOfStudy: "Frost School of Music",
+    attribution: "Beth (parent)",
   },
 ];

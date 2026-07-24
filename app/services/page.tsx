@@ -121,7 +121,7 @@ export default function ServicesPage() {
                 A lot of application advice pushes students to become a version of
                 what they think a school wants. That rarely reads as genuine, and
                 it is exhausting to keep up. The work here goes the other
-                direction. Dr. Anthony helps students identify the details,
+                direction. Our consultants help students identify the details,
                 patterns, and stories that already make them who they are, then
                 present those clearly across an application.
               </p>
@@ -136,6 +136,18 @@ export default function ServicesPage() {
                 package, it includes school-list strategy, activities and honors
                 planning, testing timelines, scholarship and special-program
                 applications, and guidance once decisions and aid letters arrive.
+              </p>
+            </div>
+
+            <div className="mt-8 flex items-start gap-3 rounded-2xl bg-white/10 p-5 ring-1 ring-white/15">
+              <span aria-hidden="true" className="mt-0.5 text-xl">
+                👥
+              </span>
+              <p className="text-base leading-relaxed text-white">
+                Every student benefits from two people reviewing their
+                application, not just one. Rather than being assigned a single
+                consultant, families get both Dr. Anthony's and Meaghan's
+                perspective on every application.
               </p>
             </div>
           </div>
