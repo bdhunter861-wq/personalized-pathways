@@ -58,7 +58,7 @@ export default function ServicesPage() {
   return (
     <>
       <PageHero
-        motif
+        motif="blocks"
         eyebrow="Services"
         title="Strategy and support, built around your student"
         description="Personalized Pathways helps students make stronger choices, tell their story well, and complete applications with less stress and more strategy. Here is who we help, how we work, and our packages."

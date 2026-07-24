@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Container from "@/components/Container";
 import SectionHeading from "@/components/SectionHeading";
 import ServiceCard from "@/components/ServiceCard";
@@ -36,6 +37,42 @@ export default function HomePage() {
           <div className="absolute -left-40 -top-40 h-[28rem] w-[28rem] rounded-full bg-brand-blue/10 blur-3xl" />
           <div className="absolute -right-32 top-24 h-[26rem] w-[26rem] rounded-full bg-brand-green/10 blur-3xl" />
         </div>
+
+        {/* Home's own graphic: an ascending growth line reaching a goal —
+            distinct from the motifs used on About/Services/Consultation/FAQs. */}
+        <svg
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 hidden h-full w-full opacity-[0.16] lg:block"
+          viewBox="0 0 900 500"
+          fill="none"
+        >
+          <path
+            d="M40 430 C 220 430 260 340 340 320 S 480 220 560 200 S 700 100 860 70"
+            stroke="var(--color-brand-blue)"
+            strokeWidth="3"
+            strokeLinecap="round"
+          />
+          <path
+            d="M810 55 L 862 68 L 848 120"
+            stroke="var(--color-brand-blue)"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            fill="none"
+          />
+          {[
+            [40, 430],
+            [340, 320],
+            [560, 200],
+          ].map(([x, y], i) => (
+            <circle key={i} cx={x} cy={y} r="6" fill="var(--color-brand-green)" />
+          ))}
+          <g transform="translate(860 70)">
+            <circle r="26" stroke="var(--color-brand-green)" strokeWidth="2.5" />
+            <circle r="15" stroke="var(--color-brand-green)" strokeWidth="2.5" />
+            <circle r="4" fill="var(--color-brand-green)" />
+          </g>
+        </svg>
 
         <Container className="relative pt-10 pb-16 lg:pt-14 lg:pb-24">
           <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
@@ -352,13 +389,14 @@ export default function HomePage() {
       <section className="py-20">
         <Container>
           <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.4fr]">
-            {/* TODO — replace this placeholder with a photo of the team. */}
-            <div className="aspect-[4/5] w-full max-w-xs overflow-hidden rounded-2xl border border-line bg-clay-soft">
-              <div className="flex h-full items-center justify-center p-6 text-center text-sm text-clay-dark">
-                Photo of the Personalized Pathways team
-                <br />
-                (coming soon)
-              </div>
+            <div className="relative aspect-[4/5] w-full max-w-xs overflow-hidden rounded-2xl border border-line shadow-sm">
+              <Image
+                src="/team/team.jpg"
+                alt="Dr. Michelle Anthony and Meaghan Elliott of Personalized Pathways College Consulting"
+                fill
+                sizes="(max-width: 640px) 90vw, 320px"
+                className="object-cover"
+              />
             </div>
             <div>
               <SectionHeading

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Container from "@/components/Container";
 import PageHero from "@/components/PageHero";
 import Backdrop from "@/components/Backdrop";
@@ -89,7 +90,7 @@ export default function AboutPage() {
   return (
     <>
       <PageHero
-        motif
+        motif="path"
         eyebrow="About"
         title="A more personal path through college admissions"
         description="Personalized Pathways College Consulting was created for families who want college planning to feel more individualized, more strategic, and more connected to their specific child."
@@ -134,18 +135,31 @@ export default function AboutPage() {
             Two educators, one individualized approach
           </h2>
 
+          {/* Joint photo */}
+          <div className="mx-auto mt-10 max-w-md">
+            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-line shadow-sm">
+              <Image
+                src="/team/team.jpg"
+                alt="Dr. Michelle Anthony and Meaghan Elliott of Personalized Pathways College Consulting"
+                fill
+                sizes="(max-width: 640px) 90vw, 448px"
+                className="object-cover"
+                priority
+              />
+            </div>
+          </div>
+
           {/* Dr. Anthony */}
           <div className="mt-14 grid gap-12 lg:grid-cols-[320px_1fr]">
             <div>
-              {/* TODO — replace this placeholder with Dr. Anthony's professional photo. */}
-              <div className="aspect-[4/5] w-full overflow-hidden rounded-2xl border border-line bg-clay-soft">
-                <div className="flex h-full items-center justify-center p-6 text-center text-sm text-clay-dark">
-                  Professional photo of
-                  <br />
-                  Dr. Michelle Anthony
-                  <br />
-                  (coming soon)
-                </div>
+              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-line shadow-sm">
+                <Image
+                  src="/team/michelle.jpg"
+                  alt="Dr. Michelle Anthony"
+                  fill
+                  sizes="(max-width: 640px) 90vw, 320px"
+                  className="object-cover"
+                />
               </div>
             </div>
 
@@ -208,15 +222,14 @@ export default function AboutPage() {
           {/* Meaghan */}
           <div className="mt-16 grid gap-12 border-t border-line pt-16 lg:grid-cols-[320px_1fr]">
             <div>
-              {/* TODO — replace this placeholder with Meaghan's professional photo. */}
-              <div className="aspect-[4/5] w-full overflow-hidden rounded-2xl border border-line bg-sage-soft">
-                <div className="flex h-full items-center justify-center p-6 text-center text-sm text-sage">
-                  Professional photo of
-                  <br />
-                  Meaghan
-                  <br />
-                  (coming soon)
-                </div>
+              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-line shadow-sm">
+                <Image
+                  src="/team/meaghan.jpg"
+                  alt="Meaghan Elliott"
+                  fill
+                  sizes="(max-width: 640px) 90vw, 320px"
+                  className="object-cover"
+                />
               </div>
             </div>
 

@@ -25,8 +25,9 @@ function logoUrl(domain: string) {
   return `https://icons.duckduckgo.com/ip3/${domain}.ico`;
 }
 
-// In favicon (no-token) mode, these come back blank — show a monogram instead.
-const FAVICON_BLANK = new Set<string>(["vanderbilt.edu"]);
+// In favicon (no-token) mode, these come back blank (not a clean 404, so the
+// <img onError> never fires) — show a monogram instead.
+const FAVICON_BLANK = new Set<string>(["vanderbilt.edu", "gwu.edu"]);
 
 // Renders a school's logo (from logo.dev, or a favicon fallback). If there's no
 // domain or the logo fails to load, it falls back to a colored monogram.

@@ -14,7 +14,7 @@ export default function ScholarshipShowcase() {
   const max = Math.max(...scholarshipBands.map((b) => parseInt(b.count, 10)));
 
   return (
-    <section className="bg-brand-deep relative overflow-hidden py-16 sm:py-20">
+    <section id="scholarships" className="bg-brand-deep relative scroll-mt-28 overflow-hidden py-16 sm:py-20">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-brand-green/25 blur-3xl"

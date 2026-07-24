@@ -112,11 +112,13 @@ function CategoryCountChart({ categories }: { categories: CompetitiveCategory[] 
 // A category group within the combined competitive-programs section: a
 // colored label, then its feature grid.
 function CategoryGroup({
+  id,
   label,
   description,
   accent,
   items,
 }: {
+  id?: string;
   label: string;
   description: string;
   accent: "blue" | "green";
@@ -129,7 +131,7 @@ function CategoryGroup({
       ? "bg-clay-soft text-clay-dark"
       : "bg-sage-soft text-sage";
   return (
-    <div className="mt-8 first:mt-0">
+    <div id={id} className="mt-8 scroll-mt-28 first:mt-0">
       <div className="flex items-center gap-3">
         <span aria-hidden="true" className={`h-3 w-3 rounded-full ${dot}`} />
         <h3 className={`inline-flex rounded-full px-3 py-1 font-serif text-base font-semibold ${chip}`}>
@@ -186,12 +188,14 @@ function CollegeGrid({ items }: { items: string[] }) {
 
 // Section wrapper. Titles use sentence case.
 function ResultsSection({
+  id,
   eyebrow,
   title,
   description,
   children,
   tint = false,
 }: {
+  id?: string;
   eyebrow: string;
   title: string;
   description?: string;
@@ -200,7 +204,8 @@ function ResultsSection({
 }) {
   return (
     <section
-      className={`relative overflow-hidden py-12 ${tint ? "bg-cream-deep/50" : ""}`}
+      id={id}
+      className={`relative scroll-mt-28 overflow-hidden py-12 ${tint ? "bg-cream-deep/50" : ""}`}
     >
       <Backdrop dots={tint} />
       <Container className="relative">
@@ -240,30 +245,38 @@ export default function ResultsPage() {
         description="A look at scholarships, specialized and competitive programs, honors colleges, and the full breadth of colleges students have earned admission to while working with Personalized Pathways."
       />
 
-      {/* Stats band */}
+      {/* Stats band — each stat jumps to the section it summarizes */}
       <section className="relative overflow-hidden border-b border-line bg-brand-deep py-12">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-brand-green/20 blur-3xl"
         />
         <Container className="relative">
-          <dl className="grid grid-cols-2 gap-6 text-center lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-6 text-center lg:grid-cols-4">
             {[
-              { n: "50+", l: "College & university acceptances" },
-              { n: "$2M+", l: "In scholarships & merit aid" },
-              { n: `${bsMdMedicalCount}+`, l: "BS/MD & medical school admissions" },
-              { n: `${honorsItems.length}+`, l: "Honors college admissions" },
+              { n: "50+", l: "College & university acceptances", href: "#colleges" },
+              { n: "$2M+", l: "In scholarships & merit aid", href: "#scholarships" },
+              {
+                n: `${bsMdMedicalCount}+`,
+                l: "BS/MD & medical school admissions",
+                href: "#bsmd-medical",
+              },
+              { n: `${honorsItems.length}+`, l: "Honors college admissions", href: "#honors" },
             ].map((s) => (
-              <div key={s.l}>
-                <dt className="font-serif text-4xl font-semibold text-white">
+              <a
+                key={s.l}
+                href={s.href}
+                className="group -m-2 block rounded-2xl p-2 transition-colors hover:bg-white/10 focus-visible:bg-white/10"
+              >
+                <p className="font-serif text-4xl font-semibold text-white transition-transform group-hover:-translate-y-0.5">
                   {s.n}
-                </dt>
-                <dd className="mt-1 text-sm leading-snug text-cream-deep/80">
+                </p>
+                <p className="mt-1 text-sm leading-snug text-cream-deep/80 group-hover:text-white">
                   {s.l}
-                </dd>
-              </div>
+                </p>
+              </a>
             ))}
-          </dl>
+          </div>
         </Container>
       </section>
 
@@ -298,6 +311,7 @@ export default function ResultsPage() {
         {competitiveCategories.map((cat) => (
           <CategoryGroup
             key={cat.key}
+            id={cat.key}
             label={cat.label}
             description={cat.description}
             accent={cat.accent}
@@ -307,6 +321,7 @@ export default function ResultsPage() {
       </ResultsSection>
 
       <ResultsSection
+        id="honors"
         eyebrow="Honors"
         title="Honors college admissions"
         description="Selective honors colleges and programs, which carry their own applications and requirements."
@@ -319,6 +334,7 @@ export default function ResultsPage() {
 
       {/* Breadth: the full college list */}
       <ResultsSection
+        id="colleges"
         eyebrow="Admissions"
         title="Colleges and universities"
         description="A sample of the many schools students have been admitted to. Select any school to visit its site."

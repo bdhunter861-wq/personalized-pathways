@@ -15,7 +15,7 @@ export default function ConsultationPage() {
   return (
     <>
       <PageHero
-        motif
+        motif="chat"
         eyebrow="Start here"
         title="Schedule a consultation"
         description="Tell us a little about your student and what you're looking for. When you send the form, your email program opens with everything filled in, ready to go to Personalized Pathways."

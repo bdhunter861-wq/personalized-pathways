@@ -27,6 +27,7 @@ export default function FAQsPage() {
   return (
     <>
       <PageHero
+        motif="question"
         eyebrow="FAQs"
         title="Questions families ask"
         description="Honest answers, including what this work can and cannot do. If your question is not here, reach out."
