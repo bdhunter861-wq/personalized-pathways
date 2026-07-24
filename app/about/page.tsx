@@ -135,20 +135,6 @@ export default function AboutPage() {
             Two educators, one individualized approach
           </h2>
 
-          {/* Joint photo */}
-          <div className="mx-auto mt-10 max-w-md">
-            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-line shadow-sm">
-              <Image
-                src="/team/team.jpg"
-                alt="Dr. Michelle Anthony and Meaghan Elliott of Personalized Pathways College Consulting"
-                fill
-                sizes="(max-width: 640px) 90vw, 448px"
-                className="object-cover"
-                priority
-              />
-            </div>
-          </div>
-
           {/* Dr. Anthony */}
           <div className="mt-14 grid gap-12 lg:grid-cols-[320px_1fr]">
             <div>
